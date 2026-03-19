@@ -6,7 +6,7 @@ def analyze_excel(file_path):
     results = {}
 
     for sheet_name in xls.sheet_names:
-        if sheet_name == "About":
+        if sheet_name == "About" or sheet_name == "Pivot":
             continue
 
         df = pd.read_excel(xls, sheet_name=sheet_name)
