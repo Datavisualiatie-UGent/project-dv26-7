@@ -14,3 +14,33 @@ export function timeline(events, {width, height} = {}) {
     ]
   });
 }
+
+export function timeline_per_region_per_year(
+    data,
+    {width, height} = {},
+) {
+  return Plot.plot({
+    title: "Evolutie van de productie van groene energie doorheen de jaren",
+    width,
+    height,
+    x: {
+      label: "Year",
+      tickFormat: d => d.toString(),
+      ticks: 10
+    },
+    y: {
+      label: "Productie groene energie ten opzichte van totale energieproductie (%)",
+      domain: [0,100],
+      grid: true
+    },
+    color: {legend: true},
+    marks: [
+        Plot.lineY(data, {
+          x: "year",
+          y: "percentage",
+          stroke: "region",
+          marker: true,
+        })
+    ]
+  });
+}

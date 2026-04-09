@@ -57,3 +57,7 @@ A typical Framework project looks like this:
 | `npm run deploy`     | Deploy your app to Observable                            |
 | `npm run clean`      | Clear the local data loader cache                        |
 | `npm run observable` | Run commands like `observable help`                      |
+
+
+## deploy on Github pages
+To deploy the newly adjusted changes to the website, run `npm run build` in the `project` directory. Then push the contents of the `project/dist` folder. Github Actions will deploy the website for you.
