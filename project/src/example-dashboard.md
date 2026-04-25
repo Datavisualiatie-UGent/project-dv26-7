@@ -64,7 +64,7 @@ import {make_overview_electricity_belgium} from "./components/overview_electrici
     resize((width) =>
         make_overview_electricity_belgium
         (
-            max_vs_produced_electricity_belgium,
+            overview_electricity_belgium,
             "Technology",
             "Electricity Production (GWh)",
             "type",
