@@ -8,12 +8,14 @@ toc: false
 
 ```js
 import {make_stacked_horizontal_bar_plot} from "./components/stacked_horizontal_bar_plot.js"
-import {make_waffle_chart} from "./components/waffle_chart.js"
+import {make_waffle_chart, waffle_legend} from "./components/waffle_chart.js"
 import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world} from "./data/load_data.js"
 ```
 
 <div class="grid grid-cols-1">
-  <div class="card">${
+  <div class="card">
+    <h2 style="margin-bottom: 10px; font-weight: bold;">Actual Production Of Electricity Using Green Energy Sources Versus Installed Capacity</h2>
+    ${
     resize((width) =>
         make_stacked_horizontal_bar_plot
         (
@@ -28,8 +30,18 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
   }</div>
 </div>
 
-<div class="grid grid-cols-3">
-  <div class="card">${
+<div class="grid grid-cols-4">
+  <div class="card">
+    <h2 style="margin-bottom: 30px; font-weight: bold;">Technology</h2>
+    ${
+    resize((width) =>
+        waffle_legend()
+    )
+  }</div>
+  <div class="card">
+    <h2 style="font-weight: bold">Actual production of green energy versus capacity</h2>
+    <h3 style="margin-bottom: 10px">Belgium</h3>
+    ${
     resize((width) =>
         make_waffle_chart
         (
@@ -38,7 +50,10 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
         )
     )
   }</div>
-  <div class="card">${
+  <div class="card">
+    <h2 style="font-weight: bold">Actual production of green energy versus capacity</h2>
+    <h3 style="margin-bottom: 10px">Europe</h3>
+    ${
     resize((width) =>
         make_waffle_chart
         (
@@ -47,7 +62,10 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
         )
     )
   }</div>
-  <div class="card">${
+  <div class="card">
+    <h2 style="font-weight: bold">Actual production of green energy versus capacity</h2>
+    <h3 style="margin-bottom: 10px">World</h3>
+    ${
     resize((width) =>
         make_waffle_chart
         (
