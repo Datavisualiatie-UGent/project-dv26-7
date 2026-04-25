@@ -8,7 +8,7 @@ export function make_overview_electricity_belgium(
   marginLeft,
   { width, height } = {},
 ) {
-  Plot.plot({
+  return Plot.plot({
     width,
     height,
     marks: [
