@@ -9,7 +9,7 @@ toc: false
 ```js
 import {make_stacked_horizontal_bar_plot} from "./components/stacked_horizontal_bar_plot.js"
 import {make_waffle_chart} from "./components/waffle_chart.js"
-import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world} from "./data/load_data.js"
+import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world, overview_electricity_belgium} from "./data/load_data.js"
 import {make_overview_electricity_belgium} from "./components/overview_electricity.js"
 ```
 
