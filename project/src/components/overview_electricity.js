@@ -9,8 +9,10 @@ export function make_overview_electricity_belgium(
   { width, height } = {},
 ) {
   Plot.plot({
+    width,
+    height,
     marks: [
-      Plot.dot(result, {
+      Plot.dot(data, {
         x: "Year",
         y: "Electricity Generation (GWh)",
         fill: "Group Technology",

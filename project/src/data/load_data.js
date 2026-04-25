@@ -147,6 +147,7 @@ function get_overview_electricity(data) {
         "Electricity Generation (GWh)": total,
       })),
   ).flat();
+
   return result;
 }
 
