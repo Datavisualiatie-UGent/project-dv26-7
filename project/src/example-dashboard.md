@@ -8,7 +8,8 @@ toc: false
 
 ```js
 import {make_stacked_horizontal_bar_plot} from "./components/stacked_horizontal_bar_plot.js"
-import {max_vs_produced_electricity_belgium, max_vs_produced_electricity_belgium_sub} from "./data/load_data.js"
+import {make_waffle_chart} from "./components/waffle_chart.js"
+import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world} from "./data/load_data.js"
 ```
 
 <div class="grid grid-cols-1">
@@ -21,6 +22,36 @@ import {max_vs_produced_electricity_belgium, max_vs_produced_electricity_belgium
             "Electricity Production (GWh)",
             "type",
             150,
+            {width}
+        )
+    )
+  }</div>
+</div>
+
+<div class="grid grid-cols-3">
+  <div class="card">${
+    resize((width) =>
+        make_waffle_chart
+        (
+            tech_shares_belgium,
+            {width}
+        )
+    )
+  }</div>
+  <div class="card">${
+    resize((width) =>
+        make_waffle_chart
+        (
+            tech_shares_europe,
+            {width}
+        )
+    )
+  }</div>
+  <div class="card">${
+    resize((width) =>
+        make_waffle_chart
+        (
+            tech_shares_world,
             {width}
         )
     )
