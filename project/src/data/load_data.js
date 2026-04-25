@@ -110,11 +110,32 @@ function get_overview_electricity(data) {
     .filter((row) => !Number.isNaN(row["Electricity Generation (GWh)"]))
     .filter((row) => row["RE or Non-RE"] == "Total Renewable");
 
-  let electricity_rollup_group_technology = d3.rollup(
-    electricity_belgium,
-    (v) => d3.sum(v, (d) => +d["Electricity Generation (GWh)"]),
-    (d) => d["Group Technology"],
-    (d) => d["Year"],
+  let electricity_rollup_group_technology = electricity_belgium.reduce(
+    (acc, row) => {
+      const group = row["Group Technology"];
+      const year = row["Year"];
+      const value = +row["Electricity Generation (GWh)"];
+
+      if (Number.isNaN(value)) return acc;
+
+      // Ensure group exists
+      if (!acc.has(group)) {
+        acc.set(group, new Map());
+      }
+
+      const groupMap = acc.get(group);
+
+      // Ensure year exists
+      if (!groupMap.has(year)) {
+        groupMap.set(year, 0);
+      }
+
+      // Add value
+      groupMap.set(year, groupMap.get(year) + value);
+
+      return acc;
+    },
+    new Map(),
   );
 
   let result = Array.from(
