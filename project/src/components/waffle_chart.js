@@ -1,7 +1,7 @@
 import * as Plot from "npm:@observablehq/plot";
 import {tech_shares_belgium} from "../data/load_data.js";
 
-export function make_waffle_chart(data, {width, height} = {})
+export function make_waffle_chart(data, {width} = {})
 {
     return Plot.plot({
         width,
