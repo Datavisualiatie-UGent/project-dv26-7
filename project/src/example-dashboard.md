@@ -1,10 +1,31 @@
 ---
 theme: dashboard
-title: Example dashboard
+title: België
 toc: false
 ---
 
-# Rocket launches 🚀
+# België 🇧🇪
+
+```js
+import {make_stacked_horizontal_bar_plot} from "./components/stacked_horizontal_bar_plot.js"
+import {max_vs_produced_electricity_belgium, max_vs_produced_electricity_belgium_sub} from "./data/load_data.js"
+```
+
+<div class="grid grid-cols-1">
+  <div class="card">${
+    resize((width) =>
+        make_stacked_horizontal_bar_plot
+        (
+            max_vs_produced_electricity_belgium,
+            "Technology",
+            "Electricity Production (GWh)",
+            "type",
+            150,
+            {width}
+        )
+    )
+  }</div>
+</div>
 
 <!-- Load and transform the data -->
 
@@ -16,11 +37,11 @@ const launches = FileAttachment("data/launches.csv").csv({typed: true});
 
 ```js
 const color = Plot.scale({
-  color: {
-    type: "categorical",
-    domain: d3.groupSort(launches, (D) => -D.length, (d) => d.state).filter((d) => d !== "Other"),
-    unknown: "var(--theme-foreground-muted)"
-  }
+    color: {
+        type: "categorical",
+        domain: d3.groupSort(launches, (D) => -D.length, (d) => d.state).filter((d) => d !== "Other"),
+        unknown: "var(--theme-foreground-muted)"
+    }
 });
 ```
 
@@ -49,17 +70,17 @@ const color = Plot.scale({
 
 ```js
 function launchTimeline(data, {width} = {}) {
-  return Plot.plot({
-    title: "Launches over the years",
-    width,
-    height: 300,
-    y: {grid: true, label: "Launches"},
-    color: {...color, legend: true},
-    marks: [
-      Plot.rectY(data, Plot.binX({y: "count"}, {x: "date", fill: "state", interval: "year", tip: true})),
-      Plot.ruleY([0])
-    ]
-  });
+    return Plot.plot({
+        title: "Launches over the years",
+        width,
+        height: 300,
+        y: {grid: true, label: "Launches"},
+        color: {...color, legend: true},
+        marks: [
+            Plot.rectY(data, Plot.binX({y: "count"}, {x: "date", fill: "state", interval: "year", tip: true})),
+            Plot.ruleY([0])
+        ]
+    });
 }
 ```
 
@@ -73,20 +94,20 @@ function launchTimeline(data, {width} = {}) {
 
 ```js
 function vehicleChart(data, {width}) {
-  return Plot.plot({
-    title: "Popular launch vehicles",
-    width,
-    height: 300,
-    marginTop: 0,
-    marginLeft: 50,
-    x: {grid: true, label: "Launches"},
-    y: {label: null},
-    color: {...color, legend: true},
-    marks: [
-      Plot.rectX(data, Plot.groupY({x: "count"}, {y: "family", fill: "state", tip: true, sort: {y: "-x"}})),
-      Plot.ruleX([0])
-    ]
-  });
+    return Plot.plot({
+        title: "Popular launch vehicles",
+        width,
+        height: 300,
+        marginTop: 0,
+        marginLeft: 50,
+        x: {grid: true, label: "Launches"},
+        y: {label: null},
+        color: {...color, legend: true},
+        marks: [
+            Plot.rectX(data, Plot.groupY({x: "count"}, {y: "family", fill: "state", tip: true, sort: {y: "-x"}})),
+            Plot.ruleX([0])
+        ]
+    });
 }
 ```
 
