@@ -8,8 +8,9 @@ toc: false
 
 ```js
 import {make_stacked_horizontal_bar_plot} from "./components/stacked_horizontal_bar_plot.js"
+import {stacked_area_chart_timeline} from "./components/timeline.js"
 import {make_waffle_chart, waffle_legend} from "./components/waffle_chart.js"
-import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world} from "./data/load_data.js"
+import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world, produced_vs_max_per_year_structured} from "./data/load_data.js"
 ```
 
 <div class="grid grid-cols-1">
@@ -70,6 +71,20 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
         make_waffle_chart
         (
             tech_shares_world,
+            {width}
+        )
+    )
+  }</div>
+</div>
+
+<div class="grid grid-cols-1">
+  <div class="card">
+    <h2 style="margin-bottom: 10px; font-weight: bold;">Evolution of capacity and actual production of green energy in Belgium</h2>
+    ${
+    resize((width) =>
+        stacked_area_chart_timeline
+        (
+            produced_vs_max_per_year_structured,
             {width}
         )
     )

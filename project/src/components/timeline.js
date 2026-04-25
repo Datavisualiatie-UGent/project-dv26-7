@@ -44,3 +44,56 @@ export function timeline_per_region_per_year(
     ]
   });
 }
+
+export function stacked_area_chart_timeline(data, {width}={})
+{
+  return Plot.plot({
+    width,
+    height: 300,
+
+    y: {
+      label: "Energy (GWh)",
+      tickFormat: d => `${(d / 1e6).toFixed(1)}M`
+    },
+    x: {
+      label: "Year",
+      tickFormat: d => String(d)
+    },
+
+    color: {
+      domain: ["produced", "max"],
+      range: ["#fde725", "#440154"],
+      legend: true
+    },
+
+    marks: [
+      Plot.areaY(
+          Array.from(data, ([year, d]) => ({
+            year: +year,
+            value: d.max,
+            type: "max"
+          })),
+          {
+            x: "year",
+            y: "value",
+            fill: "type",
+            fillOpacity: 1
+          }
+      ),
+
+      Plot.areaY(
+          Array.from(data, ([year, d]) => ({
+            year: +year,
+            value: d.produced,
+            type: "produced"
+          })),
+          {
+            x: "year",
+            y: "value",
+            fill: "type",
+            fillOpacity: 1
+          }
+      )
+    ]
+  })
+}

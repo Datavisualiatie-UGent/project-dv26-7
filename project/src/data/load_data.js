@@ -119,6 +119,25 @@ const max_vs_produced_electricity_world_dict = max_vs_produced(country_data);
 const totals_per_energy_belgium = get_totals_per_energy(max_vs_produced_electricity_belgium_dict);
 const totals_per_energy_europe = get_totals_per_energy(max_vs_produced_electricity_europe_dict);
 const totals_per_energy_world = get_totals_per_energy(max_vs_produced_electricity_world_dict);
+
+const produced_and_max_per_year = belgium_country_data.filter(r => r["RE or Non-RE"] === "Total Renewable").filter(r => r["Electricity Generation (GWh)"] !== "").filter(r => r["Electricity Installed Capacity (MW)"] !== "").reduce((map, row) => {
+    const year = row["Year"];
+    const produced = Number(row["Electricity Generation (GWh)"]);
+    const max = Number(row["Electricity Installed Capacity (MW)"]);
+
+    if (!map.has(year))
+    {
+        map.set(year, {produced: 0, max: 0});
+    }
+
+    const entry = map.get(year);
+    entry.produced += produced;
+    entry.max += max * 24 * 365 / 100;
+
+    return map;
+}, new Map())
+
+export const produced_vs_max_per_year_structured = produced_and_max_per_year;
 export const tech_shares_belgium = get_tech_shares(max_vs_produced_electricity_belgium_dict, totals_per_energy_belgium);
 export const tech_shares_europe = get_tech_shares(max_vs_produced_electricity_europe_dict, totals_per_energy_europe);
 export const tech_shares_world = get_tech_shares(max_vs_produced_electricity_world_dict, totals_per_energy_world);
