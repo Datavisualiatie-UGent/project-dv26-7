@@ -1,6 +1,6 @@
 import * as Plot from "npm:@observablehq/plot";
 
-export function make_stacked_horizontal_bar_plot(
+export function make_overview_electricity_belgium(
   data,
   category,
   value,
