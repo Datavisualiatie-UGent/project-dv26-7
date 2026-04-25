@@ -20,7 +20,7 @@ export function timeline_per_region_per_year(
     {width, height} = {},
 ) {
   return Plot.plot({
-    title: "Evolutie van de productie van groene energie doorheen de jaren",
+    title: "Evolutie van de productie van electriciteit via groene energie doorheen de jaren",
     width,
     height,
     x: {
