@@ -19,6 +19,7 @@ export function make_overview_electricity_belgium(
   return Plot.plot({
     width,
     height,
+    title: "Electricity generation in Belgium with different kinds of energy",
     x: { label: "Year", tickFormat: (d) => String(d) },
     y: { label: "Electricity Generation (GWh)" },
     marks: [
@@ -57,7 +58,7 @@ export function make_overview_electricity_belgium(
         strokeDasharray: "4,4",
       }),
       Plot.text(
-        [{ Year: 2014, label: "Doel 3 and Thiange 2 out of service" }],
+        [{ Year: 2014, label: "Doel 3 and Tihange 2 out of service" }],
         {
           x: "Year",
           y: d3.max(data, (elem) => elem["Electricity Generation (GWh)"]),
