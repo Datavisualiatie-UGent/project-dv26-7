@@ -17,6 +17,11 @@ export function make_overview_electricity_belgium(
         y: "Electricity Generation (GWh)",
         fill: "Group Technology",
       }),
+      Plot.line(data, {
+        x: "Year",
+        y: "Electricity Generation (GWh)",
+        stroke: "Group Technology",
+      }),
     ],
     color: { legend: true },
   });

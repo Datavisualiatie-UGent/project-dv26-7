@@ -108,7 +108,7 @@ function get_tech_shares(data, total) {
 function get_overview_electricity(data) {
   let electricity_belgium = data
     .filter((row) => !Number.isNaN(row["Electricity Generation (GWh)"]))
-    .filter((row) => row["RE or Non-RE"] == "Total Renewable");
+    .filter((row) => row["RE or Non-RE"] === "Total Renewable");
 
   let electricity_rollup_group_technology = electricity_belgium.reduce(
     (acc, row) => {
@@ -143,10 +143,15 @@ function get_overview_electricity(data) {
     ([group, years]) =>
       Array.from(years, ([year, total]) => ({
         "Group Technology": group,
-        Year: year,
+        Year: Number(year),
         "Electricity Generation (GWh)": total,
       })),
-  ).flat();
+  )
+    .flat()
+    .filter((elem) => elem["Electricity Generation (GWh)"] !== 0)
+    .sort((a, b) => a.Year - b.Year);
+
+  console.log(result);
 
   return result;
 }
