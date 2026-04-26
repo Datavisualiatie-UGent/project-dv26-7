@@ -137,6 +137,62 @@ const produced_and_max_per_year = belgium_country_data.filter(r => r["RE or Non-
     return map;
 }, new Map())
 
+
+function get_overview_electricity(data) {
+  let electricity_belgium = data.filter(
+    (row) => row["Electricity Generation (GWh)"] !== "",
+  );
+
+  let electricity_rollup_group_technology = electricity_belgium.reduce(
+    (acc, row) => {
+      const group = row["Group Technology"];
+      const year = row["Year"];
+      const value = +row["Electricity Generation (GWh)"];
+
+      if (Number.isNaN(value)) return acc;
+
+      // Ensure group exists
+      if (!acc.has(group)) {
+        acc.set(group, new Map());
+      }
+
+      const groupMap = acc.get(group);
+
+      // Ensure year exists
+      if (!groupMap.has(year)) {
+        groupMap.set(year, 0);
+      }
+
+      // Add value
+      groupMap.set(year, groupMap.get(year) + value);
+
+      return acc;
+    },
+    new Map(),
+  );
+
+  let result = Array.from(
+    electricity_rollup_group_technology,
+    ([group, years]) =>
+      Array.from(years, ([year, total]) => ({
+        "Group Technology": group,
+        Year: Number(year),
+        "Electricity Generation (GWh)": total,
+      })),
+  )
+    .flat()
+    .filter((elem) => elem["Electricity Generation (GWh)"] !== 0)
+    .filter(
+      (elem) =>
+        elem["Group Technology"] !== "Other non-renewable energy" &&
+        elem["Group Technology"] !== "Pumped storage",
+    )
+    .sort((a, b) => a.Year - b.Year);
+
+  return result;
+}
+
+
 export const produced_vs_max_per_year_structured = produced_and_max_per_year;
 export const tech_shares_belgium = get_tech_shares(max_vs_produced_electricity_belgium_dict, totals_per_energy_belgium);
 export const tech_shares_europe = get_tech_shares(max_vs_produced_electricity_europe_dict, totals_per_energy_europe);
@@ -153,3 +209,6 @@ export const combined_energy_data_by_year = [
     ...energy_data_by_year_europe.map(d => ({...d, region: "Europe"})),
     ...energy_data_by_year_global.map(d => ({...d, region: "World"})),
 ]
+
+export const overview_electricity_belgium =
+  get_overview_electricity(belgium_country_data);
