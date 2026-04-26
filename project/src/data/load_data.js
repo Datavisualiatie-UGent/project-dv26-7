@@ -212,6 +212,7 @@ function get_investment_data(data) {
     Investment: investements,
   }))
     .flat()
+    .filter((d) => d.Investment !== 0)
     .sort((a, b) => b.Investment - a.Investment);
 
   return result;
