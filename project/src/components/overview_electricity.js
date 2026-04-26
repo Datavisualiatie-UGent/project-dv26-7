@@ -11,7 +11,13 @@ export function make_overview_electricity_belgium(
   return Plot.plot({
     width,
     height,
+    x: {
+      type: "linear",
+      label: "Year",
+      tickFormat: (d) => String(d),
+    },
     marks: [
+      Plot.ruleY([0]),
       Plot.dot(data, {
         x: "Year",
         y: "Electricity Generation (GWh)",
