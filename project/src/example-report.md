@@ -1,5 +1,5 @@
 ---
-title: Example report
+title: Explore the dataset
 ---
 
 # A brief history of space exploration

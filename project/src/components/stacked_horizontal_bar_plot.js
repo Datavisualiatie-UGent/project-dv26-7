@@ -9,13 +9,13 @@ export function make_stacked_horizontal_bar_plot(
     {width, height} = {}
 ){
     return Plot.plot({
-        title: "Actual Production Of Electricity Using Green Energy Sources Versus Installed Capacity",
         width,
         height,
         marginLeft,
         marginTop: -20,
         color: {
-            legend: true
+            legend: true,
+            scheme: "viridis",
         },
         marks: [
             Plot.barX(data, {
