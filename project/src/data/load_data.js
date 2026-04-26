@@ -156,8 +156,6 @@ function get_overview_electricity(data) {
     )
     .sort((a, b) => a.Year - b.Year);
 
-  console.log(result);
-
   return result;
 }
 

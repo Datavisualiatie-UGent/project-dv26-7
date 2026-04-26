@@ -16,8 +16,6 @@ export function make_overview_electricity_belgium(
     .domain([...new Set(data.map((d) => d["Group Technology"]))])
     .range(d3.quantize(d3.interpolateViridis, groups.length));
 
-  console.log(color);
-
   return Plot.plot({
     width,
     height,
