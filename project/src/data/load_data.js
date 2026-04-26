@@ -107,7 +107,7 @@ function get_tech_shares(data, total) {
 
 function get_overview_electricity(data) {
   let electricity_belgium = data.filter(
-    (row) => !Number.isNaN(row["Electricity Generation (GWh)"]),
+    (row) => row["Electricity Generation (GWh)"] !== "",
   );
 
   let electricity_rollup_group_technology = electricity_belgium.reduce(
