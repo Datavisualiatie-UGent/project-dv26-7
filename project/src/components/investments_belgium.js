@@ -10,6 +10,8 @@ export function investments_belgium(
   { width, height } = {},
 ) {
   return Plot.plot({
+    width,
+    height,
     x: {
       label: "Investment (Million USD)",
       labelArrow: false,
