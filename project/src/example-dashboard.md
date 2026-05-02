@@ -10,9 +10,10 @@ toc: false
 import {make_stacked_horizontal_bar_plot} from "./components/stacked_horizontal_bar_plot.js"
 import {make_overview_electricity_belgium} from "./components/overview_electricity.js"
 import {investments_belgium} from "./components/investments_belgium.js"
+import {make_capacity_changes_belgium} from "./components/capacity_changes.js"
 import {stacked_area_chart_timeline} from "./components/timeline.js"
 import {make_waffle_chart, waffle_legend} from "./components/waffle_chart.js"
-import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world, produced_vs_max_per_year_structured, overview_electricity_belgium, investment_data_belgium} from "./data/load_data.js"
+import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world, produced_vs_max_per_year_structured, overview_electricity_belgium, investment_data_belgium, renewable_cap_changes, non_renewable_cap_changes, cap_bar_data} from "./data/load_data.js"
 ```
 
 <div class="grid grid-cols-1">
@@ -109,12 +110,32 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
   }</div>
 </div>
 
+
 <div class="grid grid-cols-1">
   <div class="card">${
     resize((width) =>
         investments_belgium
         (
             investment_data_belgium,
+            "Technology",
+            "Electricity Production (GWh)",
+            "type",
+            150,
+            {width}
+        )
+    )
+  }</div>
+</div>
+
+
+<div class="grid grid-cols-1">
+  <div class="card">${
+    resize((width) =>
+        make_capacity_changes_belgium
+        (
+            cap_bar_data,
+            renewable_cap_changes,
+            non_renewable_cap_changes,
             "Technology",
             "Electricity Production (GWh)",
             "type",
