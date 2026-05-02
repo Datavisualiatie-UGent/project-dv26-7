@@ -218,6 +218,80 @@ function get_investment_data(data) {
   return result;
 }
 
+function get_changes_capacity_data_belgium(data) {
+  let capacity = data.filter((elem) =>
+    çNumber.isNaN(elem["Electricity Installed Capacity (MW)"]),
+  );
+
+  let grouped_capacity = d3.rollup(
+    capacity,
+    (v) => d3.sum(v, (d) => +d["Electricity Installed Capacity (MW)"]),
+    (d) => d["RE or Non-RE"],
+    (d) => d["Year"],
+  );
+
+  let flat = Array.from(grouped_capacity, ([type, years]) =>
+    Array.from(years, ([year, value]) => ({
+      type,
+      year: +year,
+      capacity: value,
+    })),
+  )
+    .flat()
+    .map((d) => ({
+      ...d,
+      type:
+        d.type === "Total Renewable"
+          ? "Renewable Energy"
+          : "Non-Renewable Energy",
+    }));
+
+  let growth = flat
+    .sort((a, b) => a.type.localeCompare(b.type) || a.year - b.year)
+    .map((d, i, arr) => {
+      if (i === 0 || arr[i - 1].type !== d.type) {
+        return { ...d, growth: 0 }; // first year = no growth
+      }
+
+      return {
+        ...d,
+        growth: d.capacity - arr[i - 1].capacity,
+      };
+    });
+
+  let growth_no_first_year = growth.filter((d) => d["year"] !== 2000);
+  return growth_no_first_year;
+}
+
+function get_renewable_growth_capacity(data) {
+  let growth = get_changes_capacity_data_belgium(data);
+  return growth.filter((d) => d.type === "Renewable Energy");
+}
+
+function get_non_renewable_growth_capacity(data) {
+  let growth = get_changes_capacity_data_belgium(data);
+  return growth.filter((d) => d.type === "Non-Renewable Energy");
+}
+
+function get_capacity_changes_bar_data(data) {
+  let growth = get_changes_capacity_data_belgium(data);
+  return growth.map((elem) => {
+    if (elem.type === "Renewable Energy") {
+      let corresponding = growth_no_first_year.filter(
+        (d) =>
+          d["type"] === "Non-Renewable Energy" && d["year"] === elem["year"],
+      )[0];
+      if (corresponding["growth"] > 0) {
+        return {
+          ...elem,
+          growth: elem.growth - corresponding.growth,
+        };
+      }
+    }
+    return elem;
+  });
+}
+
 export const produced_vs_max_per_year_structured = produced_and_max_per_year;
 export const tech_shares_belgium = get_tech_shares(
   max_vs_produced_electricity_belgium_dict,
@@ -257,3 +331,11 @@ export const overview_electricity_belgium =
 
 export const investment_data_belgium =
   get_investment_data(belgium_country_data);
+
+export const renewable_cap_changes =
+  get_renewable_growth_capacity(belgium_country_data);
+
+export const non_renewable_cap_changes =
+  get_non_renewable_growth_capacity(belgium_country_data);
+
+export const cap_bar_data = get_capacity_changes_bar_data(belgium_country_data);
