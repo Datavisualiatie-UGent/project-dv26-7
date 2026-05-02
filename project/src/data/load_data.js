@@ -219,8 +219,8 @@ function get_investment_data(data) {
 }
 
 function get_changes_capacity_data_belgium(data) {
-  let capacity = data.filter((elem) =>
-    Number.isNaN(elem["Electricity Installed Capacity (MW)"]),
+  let capacity = data.filter(
+    (elem) => !Number.isNaN(elem["Electricity Installed Capacity (MW)"]),
   );
 
   let grouped_capacity = d3.rollup(
@@ -259,8 +259,7 @@ function get_changes_capacity_data_belgium(data) {
       };
     });
 
-  let growth_no_first_year = growth.filter((d) => d["year"] !== 2000);
-  return growth_no_first_year;
+  return growth.filter((d) => d["year"] !== 2000);
 }
 
 function get_renewable_growth_capacity(data) {
@@ -277,7 +276,7 @@ function get_capacity_changes_bar_data(data) {
   let growth = get_changes_capacity_data_belgium(data);
   return growth.map((elem) => {
     if (elem.type === "Renewable Energy") {
-      let corresponding = growth_no_first_year.filter(
+      let corresponding = growth.filter(
         (d) =>
           d["type"] === "Non-Renewable Energy" && d["year"] === elem["year"],
       )[0];
