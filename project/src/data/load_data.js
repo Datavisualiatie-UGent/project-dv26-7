@@ -220,7 +220,7 @@ function get_investment_data(data) {
 
 function get_changes_capacity_data_belgium(data) {
   let capacity = data.filter((elem) =>
-    çNumber.isNaN(elem["Electricity Installed Capacity (MW)"]),
+    Number.isNaN(elem["Electricity Installed Capacity (MW)"]),
   );
 
   let grouped_capacity = d3.rollup(
