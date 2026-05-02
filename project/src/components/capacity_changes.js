@@ -23,7 +23,8 @@ export function make_capacity_changes_belgium(
         d3.max(bar_data, (d) => d.growth),
       ],
     },
-    width: 1000,
+    width,
+    height,
     marks: [
       Plot.ruleY([0]),
 

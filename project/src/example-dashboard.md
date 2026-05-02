@@ -134,8 +134,8 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
         make_capacity_changes_belgium
         (
             cap_bar_data,
-            non_renewable_cap_changes,
             renewable_cap_changes,
+            non_renewable_cap_changes,
             "Technology",
             "Electricity Production (GWh)",
             "type",
