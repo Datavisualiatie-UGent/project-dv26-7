@@ -1,5 +1,6 @@
 import { FileAttachment } from "observablehq:stdlib";
 import * as d3 from "d3";
+import * as topojson from "topojson-client";
 
 const country_data = await FileAttachment("../data/country.csv").csv();
 const europe_country_data = country_data.filter(
@@ -338,3 +339,161 @@ export const non_renewable_cap_changes =
   get_non_renewable_growth_capacity(belgium_country_data);
 
 export const cap_bar_data = get_capacity_changes_bar_data(belgium_country_data);
+
+
+//--------------
+// dynamic data
+//--------------
+
+export async function loadWorld() {
+  const world = await fetch(
+    "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
+  ).then((r) => r.json());
+
+  const key = Object.keys(world.objects)[0]; // safest fix
+
+  return topojson.feature(world, world.objects[key]);
+}
+
+export async function loadCountryData() {
+  return FileAttachment("country.csv").csv({ typed: true });
+}
+
+export function buildIsoToM49(country) {
+  return new Map(
+    country.map((d) => [
+      d["ISO3 code"],
+      String(d["M49 code"]).padStart(3, "0"),
+    ])
+  );
+}
+
+export function computeCategoryData(country, category, year) {
+  const filtered = country.filter(
+    (d) =>
+      d["Year"] === year &&
+      d["Group Technology"] === category
+  );
+
+  return d3.rollup(
+    filtered,
+    (values) =>
+      d3.sum(values, (d) => d["Electricity Generation (GWh)"] || 0),
+    (d) => d["ISO3 code"]
+  );
+}
+
+export function mapToM49(categoryData, isoToM49) {
+  return new Map(
+    Array.from(categoryData, ([iso, value]) => [
+      isoToM49.get(iso),
+      value,
+    ])
+  );
+}
+
+export function attachDataToCountries(countries, dataMap) {
+  return countries.features.map((f) => ({
+    ...f,
+    value: dataMap.get(f.id),
+  }));
+}
+
+export function computeCategoryMax(country, category) {
+  const filtered = country.filter(
+    (d) => d["Group Technology"] === category
+  );
+
+  const byCountryYear = d3.rollup(
+    filtered,
+    (values) =>
+      d3.sum(values, (d) => d["Electricity Generation (GWh)"] || 0),
+    (d) => d["ISO3 code"],
+    (d) => d.Year
+  );
+
+  return d3.max(
+    Array.from(byCountryYear.values(), (countryMap) =>
+      d3.max(countryMap.values())
+    )
+  );
+}
+
+export function computeInvestmentData(country, year) {
+  const filtered = country.filter((d) => d["Year"] === year);
+
+  return d3.rollup(
+    filtered,
+    (values) =>
+      d3.sum(values, (d) => d["Public Flows (2022 USD M)"] || 0),
+    (d) => d["ISO3 code"]
+  );
+}
+
+export function computeInvestmentMax(country) {
+  const byCountryYear = d3.rollup(
+    country,
+    (values) =>
+      d3.sum(values, (d) => d["Public Flows (2022 USD M)"] || 0),
+    (d) => d["ISO3 code"],
+    (d) => d.Year
+  );
+
+  return d3.max(
+    Array.from(byCountryYear.values(), (countryMap) =>
+      d3.max(countryMap.values())
+    )
+  );
+}
+
+export const categoryMap = new Map([
+  ["Bioenergy", "Bioenergy"],
+  ["Hydropower (excl. Pumped Storage)", "Hydropower"],
+  ["Pumped storage", "Hydropower"],
+  ["Wind energy", "Wind"],
+  ["Solar energy", "Solar"],
+  ["Geothermal energy", "Other renewables"],
+  ["Marine energy", "Other renewables"],
+  ["Multiple renewables*", "Other renewables"],
+  ["Other renewable energy", "Other renewables"],
+  ["Fossil fuels", null],
+  ["Nuclear", null],
+  ["Other non-renewable energy", null],
+]);
+
+export const groupedCategories = [
+  "Bioenergy",
+  "Hydropower",
+  "Wind",
+  "Solar",
+  "Other renewables",
+];
+
+export function computeRadarData(country, iso3, year) {
+  const filtered = country.filter(
+    (d) => d.Year === year && d["ISO3 code"] === iso3
+  );
+
+  const renewableOnly = filtered.filter(
+    (d) => categoryMap.get(d["Group Technology"]) !== null
+  );
+
+  const byCategory = d3.rollup(
+    renewableOnly,
+    (v) =>
+      d3.sum(v, (d) => d["Electricity Generation (GWh)"] || 0),
+    (d) => categoryMap.get(d["Group Technology"])
+  );
+
+  const total = d3.sum(byCategory.values());
+
+  return groupedCategories.map((category) => {
+    const value = byCategory.get(category) || 0;
+
+    return {
+      category,
+      value,
+      share: total > 0 ? value / total : 0,
+    };
+  });
+}
