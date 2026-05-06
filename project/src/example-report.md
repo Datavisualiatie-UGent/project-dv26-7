@@ -132,9 +132,6 @@ const radarB = computeRadarData(
   countryB.value,
   year.value
 );
-
-console.log(world.objects);
-
 ```
 
 <div class="grid grid-cols-3"> <div class="card">${category}</div> <div class="card">${year}</div> <div class="card">${investmentYear}</div> </div>
@@ -143,4 +140,5 @@ console.log(world.objects);
 
 <div class="grid grid-cols-1"> <div class="card"> ${ resize((width) => make_investment_map( countriesWithInvestmentData, investmentMax, {width} ) ) } </div> </div>
 
-<div class="grid grid-cols-2"> <div class="card">${countryA}</div> <div class="card">${countryB}</div> </div> <div class="grid grid-cols-1"> <div class="card"> <div style="display: flex; justify-content: space-around;"> ${make_radar_chart(radarA, groupedCategories, countryA.value)} ${make_radar_chart(radarB, groupedCategories, countryB.value)} </div> </div> </div>
+<div class="grid grid-cols-2"> <div class="card">${countryA}</div> <div class="card">${countryB}</div> </div> 
+<div class="grid grid-cols-2"> <div class="card"> <div style="display: flex; justify-content: space-around;"> ${make_radar_chart(radarA, groupedCategories, countryA.value)}</div> </div> <div class="card"> ${make_radar_chart(radarB, groupedCategories, countryB.value)}</div> </div>
