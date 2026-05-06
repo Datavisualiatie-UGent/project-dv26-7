@@ -26,7 +26,7 @@ import {
 
 import {
     loadWorld,
-    loadCountryData,
+    country_data,
     buildIsoToM49,
     computeCategoryData,
     mapToM49,
@@ -39,7 +39,7 @@ import {
 } from "./data/load_data.js";
 
 const world = await loadWorld();
-const country = await loadCountryData();
+const country = country_data;
 
 const isoToM49 = buildIsoToM49(country);
 
@@ -65,11 +65,12 @@ const category = select(categories, {
 
 const yearExtent = d3.extent(country, d => d.Year);
 
-const year = range(yearExtent, {
+const yearInput = range(yearExtent, {
     step: 1,
     label: "Year",
     value: yearExtent[1]
 });
+const year = Generators.input(yearInput);
 
 const investmentYear = range(yearExtent, {
     step: 1,
@@ -127,11 +128,11 @@ const investmentMax = computeInvestmentMax(country);
 
 ```
 
-<div class="grid grid-cols-3"> <div class="card">${category}</div> <div class="card">${year}</div> <div class="card">${investmentYear}</div> </div>
+<div class="grid grid-cols-3"> <div class="card">${category}</div> <div class="card">${yearInput}</div> <div class="card">${investmentYear}</div> </div>
 
 <div class="grid grid-cols-1"> <div class="card"> ${ resize((width) => make_generation_map( countriesWithData, categoryMax, {width} ) ) } </div> </div>
 
 <div class="grid grid-cols-1"> <div class="card"> ${ resize((width) => make_investment_map( countriesWithInvestmentData, investmentMax, {width} ) ) } </div> </div>
 
 <div class="grid grid-cols-2"> <div class="card">${countryAInput}</div> <div class="card">${countryBInput}</div> </div> 
-<div class="grid grid-cols-2"> <div class="card"> <div style="display: flex; justify-content: space-around;"> ${make_radar_chart(computeRadarData(country, countryA, year.value), groupedCategories, countryA)}</div> </div> <div class="card"> ${make_radar_chart(computeRadarData(country, countryB.value, year), groupedCategories, countryB)}</div> </div>
+<div class="grid grid-cols-2"> <div class="card"> <div style="display: flex; justify-content: space-around;"> ${make_radar_chart(computeRadarData(country, countryA, year), groupedCategories, countryA)}</div> </div> <div class="card"> ${make_radar_chart(computeRadarData(country, countryB, year), groupedCategories, countryB)}</div> </div>

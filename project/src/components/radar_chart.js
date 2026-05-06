@@ -6,6 +6,7 @@ export function make_radar_chart(
   title,
   { width = 350, height = 350 } = {}
 ) {
+  console.log("radar chart")
   const radius = width / 2 - 40;
 
   const svg = d3

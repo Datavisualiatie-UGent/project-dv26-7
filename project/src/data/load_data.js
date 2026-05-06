@@ -2,7 +2,7 @@ import { FileAttachment } from "observablehq:stdlib";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 
-const country_data = await FileAttachment("../data/country.csv").csv();
+export const country_data = await FileAttachment("../data/country.csv").csv();
 const europe_country_data = country_data.filter(
   (row) => row["Region"] === "Europe",
 );
@@ -470,8 +470,9 @@ export const groupedCategories = [
 ];
 
 export function computeRadarData(country, iso3, year) {
+    console.log(year)
   const filtered = country.filter(
-    (d) => d.Year === year && d["ISO3 code"] === iso3
+    d => d.Year === year.toString() && d["ISO3 code"] === iso3
   );
 
   const renewableOnly = filtered.filter(
