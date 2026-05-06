@@ -42,7 +42,6 @@ const world = await loadWorld();
 const country = country_data;
 
 const isoToM49 = buildIsoToM49(country);
-
 const categories = [
     "Bioenergy",
     "Fossil fuels",
@@ -66,12 +65,12 @@ const category = Generators.input(categoryInput);
 
 const yearExtent = d3.extent(country, d => d.Year);
 
-const yearInput = range(yearExtent, {
+const energyYearInput = range(yearExtent, {
     step: 1,
     label: "Year",
     value: yearExtent[1]
 });
-const year = Generators.input(yearInput);
+const energyYear = Generators.input(energyYearInput);
 
 const investmentYearInput = range(yearExtent, {
     step: 1,
@@ -79,6 +78,13 @@ const investmentYearInput = range(yearExtent, {
     value: yearExtent[1]
 });
 const investmentYear = Generators.input(investmentYearInput);
+
+const radarYearInput = range(yearExtent, {
+    step: 1,
+    label: "Year",
+    value: yearExtent[1]
+});
+const radarYear = Generators.input(radarYearInput);
 
 const countriesList = Array.from(
     new Set(country.map(d => d["ISO3 code"]))
@@ -91,50 +97,80 @@ const countryBInput = select(countriesList, {label: "Country B"});
 const countryA = Generators.input(countryAInput);
 const countryB = Generators.input(countryBInput);
 
-// --- Generation map ---
-const categoryData = computeCategoryData(
-    country,
-    category,
-    year
-);
-
-const categoryDataM49 = mapToM49(categoryData, isoToM49);
-
-const countriesWithData = attachDataToCountries(
-    world,
-    categoryDataM49
-);
-
-const categoryMax = computeCategoryMax(
-    country,
-    category
-);
-
 // --- Investment map ---
-const investmentData = computeInvestmentData(
-    country,
-    investmentYear
-);
-
-const investmentDataM49 = mapToM49(
-    investmentData,
-    isoToM49
-);
-
-const countriesWithInvestmentData = attachDataToCountries(
-    world,
-    investmentDataM49
-);
-
 const investmentMax = computeInvestmentMax(country);
-
 ```
 
-<div class="grid grid-cols-3"> <div class="card">${categoryInput}</div> <div class="card">${yearInput}</div> <div class="card">${investmentYear}</div> </div>
+<div class="grid grid-cols-2"> 
+    <div class="card">
+        ${categoryInput}
+    </div> 
+    <div class="card">
+        ${energyYearInput}
+    </div>
+</div>
 
-<div class="grid grid-cols-1"> <div class="card"> ${ resize((width) => make_generation_map( countriesWithData, categoryMax, {width} ) ) } </div> </div>
+<div class="grid grid-cols-1"> 
+    <div class="card"> 
+        ${ resize((width) => make_generation_map(
+            category,
+            attachDataToCountries(
+                world, 
+                mapToM49(
+                    computeCategoryData(
+                        country, 
+                        category, 
+                        energyYear
+                    ), 
+                    isoToM49
+                )
+            ), 
+            computeCategoryMax(
+                country, 
+                category
+            ), 
+            {width} 
+        ))} 
+    </div> 
+</div>
 
-<div class="grid grid-cols-1"> <div class="card"> ${ resize((width) => make_investment_map( countriesWithInvestmentData, investmentMax, {width} ) ) } </div> </div>
+---
 
+<div class="grid grid-cols-1">
+    <div class="card">
+        ${investmentYearInput}
+    </div> 
+</div>
+
+
+<div class="grid grid-cols-1"> 
+    <div class="card"> 
+        ${ resize((width) => make_investment_map( 
+            attachDataToCountries(
+                world, 
+                mapToM49(
+                    computeInvestmentData(
+                        country, 
+                        investmentYear
+                    ), 
+                    isoToM49
+                )
+            ), 
+            investmentMax, 
+            {width} 
+        ))} 
+    </div> 
+</div>
+
+---
+
+<div class="grid grid-cols-1"> <div class="card">${radarYearInput}</div></div>
 <div class="grid grid-cols-2"> <div class="card">${countryAInput}</div> <div class="card">${countryBInput}</div> </div> 
-<div class="grid grid-cols-2"> <div class="card"> <div style="display: flex; justify-content: space-around;"> ${make_radar_chart(computeRadarData(country, countryA, year), groupedCategories, countryA)}</div> </div> <div class="card"> ${make_radar_chart(computeRadarData(country, countryB, year), groupedCategories, countryB)}</div> </div>
+<div class="grid grid-cols-2"> 
+    <div class="card"> 
+        ${make_radar_chart(computeRadarData(country, countryA, radarYear), groupedCategories, countryA)}
+    </div> 
+    <div class="card"> 
+        ${make_radar_chart(computeRadarData(country, countryB, radarYear), groupedCategories, countryB)}
+    </div> 
+</div>

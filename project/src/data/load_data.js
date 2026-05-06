@@ -371,7 +371,7 @@ export function buildIsoToM49(country) {
 export function computeCategoryData(country, category, year) {
   const filtered = country.filter(
     (d) =>
-      d["Year"] === year &&
+      d["Year"] === year.toString() &&
       d["Group Technology"] === category
   );
 
@@ -420,7 +420,7 @@ export function computeCategoryMax(country, category) {
 }
 
 export function computeInvestmentData(country, year) {
-  const filtered = country.filter((d) => d["Year"] === year);
+  const filtered = country.filter((d) => d["Year"] === year.toString());
 
   return d3.rollup(
     filtered,
@@ -470,7 +470,6 @@ export const groupedCategories = [
 ];
 
 export function computeRadarData(country, iso3, year) {
-    console.log(year)
   const filtered = country.filter(
     d => d.Year === year.toString() && d["ISO3 code"] === iso3
   );

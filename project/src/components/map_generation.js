@@ -2,14 +2,17 @@ import * as Plot from "npm:@observablehq/plot";
 import * as d3 from "d3";
 
 export function make_generation_map(
+  title,
   countriesWithData,
   categoryMax,
   { width, height } = {}
 ) {
+  console.log(countriesWithData[0]);
   const color = d3.scaleSequential(d3.interpolateYlGnBu)
     .domain([0, categoryMax]);
 
   return Plot.plot({
+    title,
     projection: "equal-earth",
     width,
     height,
