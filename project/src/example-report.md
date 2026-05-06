@@ -58,10 +58,11 @@ const categories = [
     "Wind energy"
 ];
 
-const category = select(categories, {
+const categoryInput = select(categories, {
     label: "Energy category",
     value: "Solar energy"
 });
+const category = Generators.input(categoryInput);
 
 const yearExtent = d3.extent(country, d => d.Year);
 
@@ -92,8 +93,8 @@ const countryB = Generators.input(countryBInput);
 // --- Generation map ---
 const categoryData = computeCategoryData(
     country,
-    category.value,
-    year.value
+    category,
+    year
 );
 
 const categoryDataM49 = mapToM49(categoryData, isoToM49);
@@ -105,7 +106,7 @@ const countriesWithData = attachDataToCountries(
 
 const categoryMax = computeCategoryMax(
     country,
-    category.value
+    category
 );
 
 // --- Investment map ---
@@ -128,7 +129,7 @@ const investmentMax = computeInvestmentMax(country);
 
 ```
 
-<div class="grid grid-cols-3"> <div class="card">${category}</div> <div class="card">${yearInput}</div> <div class="card">${investmentYear}</div> </div>
+<div class="grid grid-cols-3"> <div class="card">${categoryInput}</div> <div class="card">${yearInput}</div> <div class="card">${investmentYear}</div> </div>
 
 <div class="grid grid-cols-1"> <div class="card"> ${ resize((width) => make_generation_map( countriesWithData, categoryMax, {width} ) ) } </div> </div>
 
