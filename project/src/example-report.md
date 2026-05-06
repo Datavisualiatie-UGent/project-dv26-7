@@ -73,11 +73,12 @@ const yearInput = range(yearExtent, {
 });
 const year = Generators.input(yearInput);
 
-const investmentYear = range(yearExtent, {
+const investmentYearInput = range(yearExtent, {
     step: 1,
     label: "Investment year",
     value: yearExtent[1]
 });
+const investmentYear = Generators.input(investmentYearInput);
 
 const countriesList = Array.from(
     new Set(country.map(d => d["ISO3 code"]))
@@ -112,7 +113,7 @@ const categoryMax = computeCategoryMax(
 // --- Investment map ---
 const investmentData = computeInvestmentData(
     country,
-    investmentYear.value
+    investmentYear
 );
 
 const investmentDataM49 = mapToM49(
