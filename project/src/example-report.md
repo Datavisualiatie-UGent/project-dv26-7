@@ -63,7 +63,7 @@ const categories = [
 ];
 
 const categoryInput = select(categories, {
-    label: "Energy category",
+    label: "Energy category: ",
     value: "Solar energy"
 });
 const category = Generators.input(categoryInput);
@@ -96,8 +96,8 @@ const countriesList = Array.from(
 ).sort();
 
 
-const countryAInput = select(countriesList, {label: "Country A"});
-const countryBInput = select(countriesList, {label: "Country B"});
+const countryAInput = select(countriesList, {label: "Country A: "});
+const countryBInput = select(countriesList, {label: "Country B: "});
 
 const countryA = Generators.input(countryAInput);
 const countryB = Generators.input(countryBInput);
@@ -116,6 +116,18 @@ const relativeInput = select(
 const relativeMode =
     Generators.input(relativeInput);
 ```
+---
+
+<h2>
+Global overview
+</h2>
+
+<p>
+The shift to the production and use of renewable energy sources in the world is as important as ever. With scientists everywhere warning about the consequences of global warming, many countries attempt to increase their share of renewable energy. But how are they doing that and how have they evolved over the years?
+</p>
+<p>
+Using the visualisation below, you can select the category of renewables in which you are interested and look at the electricity production throughout the years. The worldmap shows the absolute production of electricity per category for each country.
+</p>
 
 <div class="grid grid-cols-2"> 
     <div class="card">
@@ -127,7 +139,8 @@ const relativeMode =
 </div>
 
 <div class="grid grid-cols-1"> 
-    <div class="card"> 
+    <div class="card">
+        <h2 style="font-weight: bold">Electricity generation for each country per category and year</h2>
         ${ resize((width) => make_generation_map(
             category,
             attachDataToCountries(
@@ -150,6 +163,9 @@ const relativeMode =
     </div> 
 </div>
 
+<p>
+But let's also take a look at the investments made by each country. 
+</p>
 
 <div class="grid grid-cols-1">
     <div class="card">
@@ -179,8 +195,25 @@ const relativeMode =
 
 ---
 
-<div class="grid grid-cols-1"> <div class="card">${radarYearInput}</div></div>
-<div class="grid grid-cols-2"> <div class="card">${countryAInput}</div> <div class="card">${countryBInput}</div> </div> 
+<h2>
+Comparison of countries
+</h2>
+
+<p>
+Now that we have a sense of the global trends, maybe it is interesting to take a closer look at the countries themselves. From what sources do countries get there renewable energy and how much of their total energy production is renewable?
+</p>
+
+<p>
+Below you can select 2 countries and analyze where they get their renewable energy from. But don't be bamboozled, these percentages are relative and don't show what share of their production is renewable as well as how large their production is. For that comparison, you can take a closer look at the bar chart underneath to get a better idea. 
+</p>
+
+<div class="grid grid-cols-1"> 
+  <div class="card">${radarYearInput}</div>
+</div>
+<div class="grid grid-cols-2">
+  <div class="card">${countryAInput}</div>
+  <div class="card">${countryBInput}</div>
+</div> 
 <div class="grid grid-cols-2"> 
     <div class="card"> 
         ${make_radar_chart(computeRadarData(country, countryA, radarYear), groupedCategories, countryA)}
