@@ -29,6 +29,10 @@ import {
 } from "./components/production_comparison_chart.js";
 
 import {
+    make_country_evolution_chart
+} from "./components/country_evolution_chart.js";
+
+import {
     loadWorld,
     country_data,
     buildIsoToM49,
@@ -40,7 +44,8 @@ import {
     computeInvestmentMax,
     computeRadarData,
     groupedCategories,
-    computeProductionComparisonData
+    computeProductionComparisonData,
+    computeCountryEvolutionData
 } from "./data/load_data.js";
 
 const world = await loadWorld();
@@ -115,6 +120,9 @@ const relativeInput = select(
 
 const relativeMode =
     Generators.input(relativeInput);
+
+const selectedCountryInput = select(["USA", ...countriesList]);
+const selectedCountry = selectedCountryInput;
 ```
 ---
 
@@ -158,9 +166,38 @@ Using the visualisation below, you can select the category of renewables in whic
                 country, 
                 category
             ), 
-            {width} 
+            {
+              width,
+              onCountryClick: d => {
+                selectedCountryInput.value = d;
+              }
+            } 
         ))} 
     </div> 
+</div>
+
+---
+
+<div>
+  Selected country: ${selectedCountry.value}
+</div>
+
+## Selected country evolution
+
+<div class="grid grid-cols-1">
+    <div class="card">
+        ${
+            resize((width) =>
+                make_country_evolution_chart(
+                    computeCountryEvolutionData(
+                        country,
+                        selectedCountry.value
+                    ),
+                    { width }
+                )
+            )
+        }
+    </div>
 </div>
 
 <p>

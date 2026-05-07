@@ -545,3 +545,36 @@ export function computeProductionComparisonData(
     };
   });
 }
+
+export function computeCountryEvolutionData(country, iso3) {
+  if (!iso3) return [];
+
+  const filtered = country.filter(
+    d => d["ISO3 code"] === iso3
+  );
+
+  // group by year + category (THIS IS THE FIX)
+  const rolled = d3.rollups(
+    filtered,
+    v => d3.sum(v, d =>
+      +d["Electricity Generation (GWh)"] || 0
+    ),
+    d => +d.Year,
+    d => d["Group Technology"]
+  );
+
+  // flatten to Plot-friendly format
+  const result = [];
+
+  for (const [year, categories] of rolled) {
+    for (const [category, value] of categories) {
+      result.push({
+        year,
+        category,
+        value
+      });
+    }
+  }
+
+  return result.sort((a, b) => a.year - b.year);
+}
