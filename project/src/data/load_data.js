@@ -533,17 +533,6 @@ export function computeProductionComparisonData(
 
     const total = renewable + nonRenewable;
 
-    console.log({
-      country: iso3,
-      Renewable: relative && total > 0
-        ? renewable / total
-        : renewable,
-      "Non-renewable": relative && total > 0
-        ? nonRenewable / total
-        : nonRenewable,
-      total
-    });
-
     return {
       country: iso3,
       Renewable: relative && total > 0
