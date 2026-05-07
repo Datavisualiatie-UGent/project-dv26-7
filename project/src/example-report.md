@@ -199,6 +199,7 @@ const relativeMode =
 
 <div class="grid grid-cols-1">
     <div class="card">
+      <h2 style="font-weight: bold">Comparison of proportions renewable/non-renewable electricity generation of the selected countries</h2>
         ${
             resize((width) =>
                 make_production_comparison_chart(

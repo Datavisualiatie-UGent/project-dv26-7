@@ -4,15 +4,15 @@ export function make_production_comparison_chart(
   data,
   {
     width = 500,
-    height = 500,
+    height = 750,
     relative = false
   } = {}
 ) {
   const margin = {
     top: 30,
     right: 20,
-    bottom: 40,
-    left: 60
+    bottom: 50,
+    left: 70
   };
 
   const keys = [
@@ -79,17 +79,17 @@ export function make_production_comparison_chart(
     });
 
   // y-axis
+  const yAxis = relative
+    ? d3.axisLeft(y)
+        .tickFormat(d3.format(".0%"))
+    : d3.axisLeft(y);
+
   svg.append("g")
     .attr(
       "transform",
       `translate(${margin.left},0)`
     )
-    .call(
-      relative
-        ? d3.axisLeft(y)
-            .tickFormat(d3.format(".0%"))
-        : d3.axisLeft(y)
-    )
+    .call(yAxis)
     .call(g => {
       g.selectAll("text")
         .attr("fill", "white");
@@ -97,6 +97,21 @@ export function make_production_comparison_chart(
       g.selectAll("path,line")
         .attr("stroke", "white");
     });
+
+  // y-axis label
+  svg.append("text")
+    .attr(
+      "transform",
+      `translate(20, ${height / 2}) rotate(-90)`
+    )
+    .attr("text-anchor", "middle")
+    .attr("fill", "white")
+    .style("font-size", "12px")
+    .text(
+      relative
+        ? "Share of production"
+        : "Electricity generation (GWh)"
+    );
 
   // legend
   svg.append("g")
