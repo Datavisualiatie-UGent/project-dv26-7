@@ -497,3 +497,62 @@ export function computeRadarData(country, iso3, year) {
     };
   });
 }
+
+export const productionCategories = [
+  "Renewable",
+  "Non-renewable"
+];
+
+export function computeProductionComparisonData(
+  country,
+  iso3List,
+  year,
+  relative = false
+) {
+  return iso3List.map((iso3) => {
+    const filtered = country.filter(
+      d =>
+        d.Year === year.toString() &&
+        d["ISO3 code"] === iso3
+    );
+
+    let renewable = 0;
+    let nonRenewable = 0;
+
+    filtered.forEach((d) => {
+      const value = Number(d["Electricity Generation (GWh)"]) || 0;
+
+      const mapped = categoryMap.get(d["Group Technology"]);
+
+      if (mapped !== null) {
+        renewable += value;
+      } else {
+        nonRenewable += value;
+      }
+    });
+
+    const total = renewable + nonRenewable;
+
+    console.log({
+      country: iso3,
+      Renewable: relative && total > 0
+        ? renewable / total
+        : renewable,
+      "Non-renewable": relative && total > 0
+        ? nonRenewable / total
+        : nonRenewable,
+      total
+    });
+
+    return {
+      country: iso3,
+      Renewable: relative && total > 0
+        ? renewable / total
+        : renewable,
+      "Non-renewable": relative && total > 0
+        ? nonRenewable / total
+        : nonRenewable,
+      total
+    };
+  });
+}

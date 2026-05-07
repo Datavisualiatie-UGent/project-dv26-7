@@ -25,6 +25,10 @@ import {
 } from "./components/radar_chart.js";
 
 import {
+    make_production_comparison_chart
+} from "./components/production_comparison_chart.js";
+
+import {
     loadWorld,
     country_data,
     buildIsoToM49,
@@ -35,7 +39,8 @@ import {
     computeInvestmentData,
     computeInvestmentMax,
     computeRadarData,
-    groupedCategories
+    groupedCategories,
+    computeProductionComparisonData
 } from "./data/load_data.js";
 
 const world = await loadWorld();
@@ -99,6 +104,17 @@ const countryB = Generators.input(countryBInput);
 
 // --- Investment map ---
 const investmentMax = computeInvestmentMax(country);
+
+const relativeInput = select(
+    ["Absolute", "Relative"],
+    {
+        label: "Production mode",
+        value: "Absolute"
+    }
+);
+
+const relativeMode =
+    Generators.input(relativeInput);
 ```
 
 <div class="grid grid-cols-2"> 
@@ -134,7 +150,6 @@ const investmentMax = computeInvestmentMax(country);
     </div> 
 </div>
 
----
 
 <div class="grid grid-cols-1">
     <div class="card">
@@ -173,4 +188,33 @@ const investmentMax = computeInvestmentMax(country);
     <div class="card"> 
         ${make_radar_chart(computeRadarData(country, countryB, radarYear), groupedCategories, countryB)}
     </div> 
+</div>
+
+
+<div class="grid grid-cols-1">
+    <div class="card">
+        ${relativeInput}
+    </div>
+</div>
+
+<div class="grid grid-cols-1">
+    <div class="card">
+        ${
+            resize((width) =>
+                make_production_comparison_chart(
+                    computeProductionComparisonData(
+                        country,
+                        [countryA, countryB],
+                        radarYear,
+                        relativeMode === "Relative"
+                    ),
+                    {
+                        width,
+                        relative:
+                            relativeMode === "Relative"
+                    }
+                )
+            )
+        }
+    </div>
 </div>
