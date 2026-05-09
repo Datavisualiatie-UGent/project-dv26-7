@@ -16,6 +16,36 @@ import {make_waffle_chart, waffle_legend} from "./components/waffle_chart.js"
 import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_europe, tech_shares_world, produced_vs_max_per_year_structured, overview_electricity_belgium, investment_data_belgium, renewable_cap_changes, non_renewable_cap_changes, cap_bar_data} from "./data/load_data.js"
 ```
 
+<div>
+  Money makes the world go round and for green energy this isn't any different. Without the right equipment, you cannot make the sun, wind, water or even municipal waste your ally. That is why investments in these technologies are necessary to shift the electricity production in a greener direction. Let's take a look at what Belgium does with it's government money.
+</div>
+
+<div class="grid grid-cols-1">
+  <div class="card">${
+    resize((width) =>
+        investments_belgium
+        (
+            investment_data_belgium,
+            "Technology",
+            "Electricity Production (GWh)",
+            "type",
+            150,
+            {width}
+        )
+    )
+  }</div>
+</div>
+
+<div>
+   From this graph alone, we can already tell what the main focus for renewable energy is in Belgium: the big offshore windmills in the Belgian part of the North Sea. Over 3 billion US dollar was invested in these offshore windparks during the last 24 years. It is the obvious choice for Belgium to invest in this type of energy given our position on the map. If we were positioned a bit more to the south, then maybe Belgium could invest more into solar panels, but as of today solar panels and rain are not a super match.
+</div>
+
+
+<div>
+
+</div>
+
+
 <div class="grid grid-cols-1">
   <div class="card">
     <h2 style="margin-bottom: 10px; font-weight: bold;">Actual Production Of Electricity Using Green Energy Sources Versus Installed Capacity</h2>
@@ -80,19 +110,6 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
   }</div>
 </div>
 
-<div class="grid grid-cols-1">
-  <div class="card">
-    <h2 style="margin-bottom: 10px; font-weight: bold;">Evolution of capacity and actual production of green energy in Belgium</h2>
-    ${
-    resize((width) =>
-        stacked_area_chart_timeline
-        (
-            produced_vs_max_per_year_structured,
-            {width}
-        )
-    )
-  }</div>
-</div>
 
 <div class="grid grid-cols-1">
   <div class="card">${
@@ -111,21 +128,7 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 </div>
 
 
-<div class="grid grid-cols-1">
-  <div class="card">${
-    resize((width) =>
-        investments_belgium
-        (
-            investment_data_belgium,
-            "Technology",
-            "Electricity Production (GWh)",
-            "type",
-            150,
-            {width}
-        )
-    )
-  }</div>
-</div>
+
 
 
 <div class="grid grid-cols-1">
@@ -145,95 +148,3 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
     )
   }</div>
 </div>
-
-<!-- Load and transform the data -->
-
-```js
-const launches = FileAttachment("data/launches.csv").csv({typed: true});
-```
-
-<!-- A shared color scale for consistency, sorted by the number of launches -->
-
-```js
-const color = Plot.scale({
-    color: {
-        type: "categorical",
-        domain: d3.groupSort(launches, (D) => -D.length, (d) => d.state).filter((d) => d !== "Other"),
-        unknown: "var(--theme-foreground-muted)"
-    }
-});
-```
-
-<!-- Cards with big numbers -->
-
-<div class="grid grid-cols-4">
-  <div class="card">
-    <h2>United States 🇺🇸</h2>
-    <span class="big">${launches.filter((d) => d.stateId === "US").length.toLocaleString("en-US")}</span>
-  </div>
-  <div class="card">
-    <h2>Russia 🇷🇺 <span class="muted">/ Soviet Union</span></h2>
-    <span class="big">${launches.filter((d) => d.stateId === "SU" || d.stateId === "RU").length.toLocaleString("en-US")}</span>
-  </div>
-  <div class="card">
-    <h2>China 🇨🇳</h2>
-    <span class="big">${launches.filter((d) => d.stateId === "CN").length.toLocaleString("en-US")}</span>
-  </div>
-  <div class="card">
-    <h2>Other</h2>
-    <span class="big">${launches.filter((d) => d.stateId !== "US" && d.stateId !== "SU" && d.stateId !== "RU" && d.stateId !== "CN").length.toLocaleString("en-US")}</span>
-  </div>
-</div>
-
-<!-- Plot of launch history -->
-
-```js
-function launchTimeline(data, {width} = {}) {
-    return Plot.plot({
-        title: "Launches over the years",
-        width,
-        height: 300,
-        y: {grid: true, label: "Launches"},
-        color: {...color, legend: true},
-        marks: [
-            Plot.rectY(data, Plot.binX({y: "count"}, {x: "date", fill: "state", interval: "year", tip: true})),
-            Plot.ruleY([0])
-        ]
-    });
-}
-```
-
-<div class="grid grid-cols-1">
-  <div class="card">
-    ${resize((width) => launchTimeline(launches, {width}))}
-  </div>
-</div>
-
-<!-- Plot of launch vehicles -->
-
-```js
-function vehicleChart(data, {width}) {
-    return Plot.plot({
-        title: "Popular launch vehicles",
-        width,
-        height: 300,
-        marginTop: 0,
-        marginLeft: 50,
-        x: {grid: true, label: "Launches"},
-        y: {label: null},
-        color: {...color, legend: true},
-        marks: [
-            Plot.rectX(data, Plot.groupY({x: "count"}, {y: "family", fill: "state", tip: true, sort: {y: "-x"}})),
-            Plot.ruleX([0])
-        ]
-    });
-}
-```
-
-<div class="grid grid-cols-1">
-  <div class="card">
-    ${resize((width) => vehicleChart(launches, {width}))}
-  </div>
-</div>
-
-Data: Jonathan C. McDowell, [General Catalog of Artificial Space Objects](https://planet4589.org/space/gcat)
