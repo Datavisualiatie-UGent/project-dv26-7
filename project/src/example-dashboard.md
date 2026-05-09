@@ -40,9 +40,58 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
    From this graph alone, we can already tell what the main focus for renewable energy is in Belgium: the big offshore windmills in the Belgian part of the North Sea. Over 3 billion US dollar was invested in these offshore windparks during the last 24 years. It is the obvious choice for Belgium to invest in this type of energy given our position on the map. If we were positioned a bit more to the south, then maybe Belgium could invest more into solar panels, but as of today solar panels and rain are not a super match.
 </div>
 
+---
 
 <div>
+  Of course, it could be handy if those investments actually payed off by using this green energy to produce electricity. Therefore you can take a look at the graph below to see the evolution of where the electricity in Belgium comes from.
+</div>
 
+<div class="grid grid-cols-1">
+  <div class="card">${
+    resize((width) =>
+        make_overview_electricity_belgium
+        (
+            overview_electricity_belgium,
+            "Technology",
+            "Electricity Production (GWh)",
+            "type",
+            150,
+            {width}
+        )
+    )
+  }</div>
+</div>
+
+<div>
+  It is definitely obvious that the investments in (offshore) wind energy payed off. In 2018 the biggest offshore wind farm as of yet opened, which gave the electricity generation from wind energy a big boost.
+</div>
+<div>
+  There are other interesting trends to see on this plot. You can see that from 2011 until 2023, the nuclear reactors started being unreliable, with the repair works that happened in 2014 to Doel 3 and Tihange 2, which lead to a big drop in electricity generation from nuclear energy. Eventually Doel 3 was officially closed in 2022, leading to a more than 10,000 GWh drop in the following year. From the graph, it is unclear how the government handled this drop, but other energy sources definitely did not compensate this shortfall.
+</div>
+<div>
+  Another talking point is the evolution of electricity generated with fossil fuels. In 2009 there was the EU Renewable Energy Directive that wanted member states to reduce their use of fossil fuels. To see if Belgium actually started using less fossil fuels, there is also the possibility to look at the energy capacity that Belgium has for renewable and non-renewable energy and how this capacity evolved over the years. In the graph below you can see the the addition or reduction of the capacity for non-renewable and renewable energy compared to the year prior. 
+</div>
+
+<div class="grid grid-cols-1">
+  <div class="card">${
+    resize((width) =>
+        make_capacity_changes_belgium
+        (
+            cap_bar_data,
+            renewable_cap_changes,
+            non_renewable_cap_changes,
+            "Technology",
+            "Electricity Production (GWh)",
+            "type",
+            150,
+            {width}
+        )
+    )
+  }</div>
+</div>
+
+<div>
+  
 </div>
 
 
@@ -111,40 +160,10 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 </div>
 
 
-<div class="grid grid-cols-1">
-  <div class="card">${
-    resize((width) =>
-        make_overview_electricity_belgium
-        (
-            overview_electricity_belgium,
-            "Technology",
-            "Electricity Production (GWh)",
-            "type",
-            150,
-            {width}
-        )
-    )
-  }</div>
-</div>
 
 
 
 
 
-<div class="grid grid-cols-1">
-  <div class="card">${
-    resize((width) =>
-        make_capacity_changes_belgium
-        (
-            cap_bar_data,
-            renewable_cap_changes,
-            non_renewable_cap_changes,
-            "Technology",
-            "Electricity Production (GWh)",
-            "type",
-            150,
-            {width}
-        )
-    )
-  }</div>
-</div>
+
+
