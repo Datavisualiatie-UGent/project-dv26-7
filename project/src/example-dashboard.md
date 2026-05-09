@@ -91,7 +91,14 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 </div>
 
 <div>
-  
+  This graph clearly shows that the capacity additions in renewable energy outweigh the additions of the non-renewable energy capacity. The investements in renewable energy are also reflected in the growth of the renewable energy capacitiy.
+  Belgium seems to follow the 2009 EU directive, because it slowly removes some of its non-renewable energy capacity, meaning that it can also produce less electricity with these types of energy.
+</div>
+
+---
+
+<div>
+  In the previous graph you could clearly see the growth in renewable energy capacity. A big question that now remains is which renewable energy source has the most capacity and how does this capacity relate to the actual production of electricity with this energy source? As you will see in the following graph, capacity and what is actually produced are really not the same thing. This graph will show you the total electricity produced from 2000 to 2023 in relation to the in total capacity from 2000 to 2023. The capacity is the electricity that could have been produced during this period. 
 </div>
 
 
@@ -111,6 +118,17 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
         )
     )
   }</div>
+</div>
+
+<div>
+  As you can see, Belgium has a lot of solar capacity. This means that in theory Belgium could be able to generate over 500,000 GWh of electricity by just using solar energy. Of course this is an unreachable goal given that the sun does not always shine and of course there is also the fact that this is still Belgium. A lot of people have solar panels on their roofs, adding to the total capacity, but given the weather conditions in Belgium and the day-night cycle, not that much electricity is generated in Belgium with solar energy given the total capacity. For wind energy this capacity is far less than the solar energy capacity, given that not every person in Belgium has a windmill in their backyard. Wind energy in general shows a much smaller gap between its capacity and what it actually produces in terms of electricity. This is because in contrast to the sun, there can be wind at any time. 
+  You may also notice that solid biofuels, biogas and renewable municipal waste are very close to their theoretical electricity production. This is because these types of renewable energy sources can be used day and night and more reliably than wind to produce electricity. Solid biofuels can for example contain wood or wood pellets that can be burned to generate heat and this heat can be transformed into electricity. 
+</div>
+
+---
+
+<div>
+  Last but not least, it is also insightful to compare the Belgian renewable energy sources and their capacities against what Europe or even the world does. This can be seen in the last graph.
 </div>
 
 <div class="grid grid-cols-4">
@@ -157,6 +175,10 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
         )
     )
   }</div>
+</div>
+
+<div>
+  
 </div>
 
 
