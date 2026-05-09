@@ -4,6 +4,11 @@ toc: false
 
 <div class="hero">
   <h1>groene energie</h1>
+  Electrification is a buzzing topic nowadays. With the climbing global temperature, more and more people - except those that like to live in their own world - begin to realize that the time is running out. Of course, it is always easier said than done. There is no advantage to driving your new electric car if the electricity that was needed to put those wheels in motion came from a dead dinosaur or their prehistoric picnic leftovers. Electricity from GREEN energy sources, that is the way things should be headed. Therefore, it is important to get a grasp of how countries all over the world generate their electricity. Are they still relying on ancient life or can this life finally rest for good? What do their investments look like? Do they keep investing in ancient technology, dreading to use sun, wind, or water as one of their energy sources? These are some of the questions that will get answered by looking at the graphs and data on this website.
+</div>
+
+<div>
+  In the graph below, you can see the evolution of the production of electricity using green energy sources. On the y-axis, you can see the percentage of green electricity production in relation to all of the produced electricity. Throughout the years it is clear that Belgium lacked behind in their green electricity production. Up untill 2011, less than 10% of all the produced electricity, came from renewable energy sources. In the next 7 years, Belgium was however able to double that production. In 2023, Belgium produced more than 30% of its electricity through renewable sources, thereby surpassing the world and catching up to Europe, where almost 40% of the produced electricity is sustainable. 
 </div>
 
 ```js
@@ -21,36 +26,11 @@ import {timeline_per_region_per_year} from "./components/timeline.js";
     )
   }</div>
 </div>
-
----
-
-## Next steps
-
-Here are some ideas of things you could try…
-
-<div class="grid grid-cols-4">
-  <div class="card">
-    Chart your own data using <a href="https://observablehq.com/framework/lib/plot"><code>Plot</code></a> and <a href="https://observablehq.com/framework/files"><code>FileAttachment</code></a>. Make it responsive using <a href="https://observablehq.com/framework/javascript#resize(render)"><code>resize</code></a>.
-  </div>
-  <div class="card">
-    Create a <a href="https://observablehq.com/framework/project-structure">new page</a> by adding a Markdown file (<code>whatever.md</code>) to the <code>src</code> folder.
-  </div>
-  <div class="card">
-    Add a drop-down menu using <a href="https://observablehq.com/framework/inputs/select"><code>Inputs.select</code></a> and use it to filter the data shown in a chart.
-  </div>
-  <div class="card">
-    Write a <a href="https://observablehq.com/framework/loaders">data loader</a> that queries a local database or API, generating a data snapshot on build.
-  </div>
-  <div class="card">
-    Import a <a href="https://observablehq.com/framework/imports">recommended library</a> from npm, such as <a href="https://observablehq.com/framework/lib/leaflet">Leaflet</a>, <a href="https://observablehq.com/framework/lib/dot">GraphViz</a>, <a href="https://observablehq.com/framework/lib/tex">TeX</a>, or <a href="https://observablehq.com/framework/lib/duckdb">DuckDB</a>.
-  </div>
-  <div class="card">
-    Ask for help, or share your work or ideas, on our <a href="https://github.com/observablehq/framework/discussions">GitHub discussions</a>.
-  </div>
-  <div class="card">
-    Visit <a href="https://github.com/observablehq/framework">Framework on GitHub</a> and give us a star. Or file an issue if you’ve found a bug!
-  </div>
-</div>
+ 
+ ---
+ <div>
+  Now let's go to the next page to understand where Belgium gets its renewable electricity from.
+ </div>
 
 <style>
 
