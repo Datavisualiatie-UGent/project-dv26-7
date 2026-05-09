@@ -178,7 +178,13 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 </div>
 
 <div>
-  
+  In the waffle chart about Belgium you can see that about 5% of the maximal theoretical electricity production using renewable energy is produced by solid biofuels, another 5% by solar energy, 10% because of wind energy and 3% with biogas, renewable municipal waste and renewable hydropower. That means that 23% of the total capacity was actually produced in Belgium during 2000 until 2023. If this is compared to Europe and the world, then you can see that they use their capacity in a more efficient way. Also interesting to notice that both Europe and the world are really dependent on renewable hydropower for their electricity production, while this is in Belgium really not the case. Again, this has to do with the geography of Belgium, which lends itself more to wind energy than to hydropower.
+</div>
+
+---
+
+<div>
+  If you have made it this far, then you probably cannot wait to investigate all this data yourself. Luckily for you, on our next page, you can fulfill this wish!
 </div>
 
 
