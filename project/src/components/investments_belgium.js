@@ -46,7 +46,7 @@ export function investments_belgium(
         textAnchor: "start",
       }),
     ],
-    color: { legend: false, scheme: "viridis" },
+    color: { legend: false },
     margin: 120,
     marginTop: 0,
     marginBottom: 40,
