@@ -22,7 +22,8 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 
 <div class="grid grid-cols-1">
   <div class="card">
-    <h2 style="font-weight: bold; max-width: 100%;">Investments in Belgium for renewable energy (2000-2024)</h2>
+    <h2 style="font-weight: bold; max-width: 100%;">Investments for renewable energy (2000-2024)</h2>
+    <h3 style="margin-bottom: 10px">Belgium</h3>
     ${
     resize((width) =>
         investments_belgium
@@ -49,7 +50,10 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 </div>
 
 <div class="grid grid-cols-1">
-  <div class="card">${
+  <div class="card">
+    <h2 style="font-weight: bold; max-width: 100%;">Electricity generation with different kinds of energy</h2>
+    <h3 style="margin-bottom: 10px">Belgium</h3>
+    ${
     resize((width) =>
         make_overview_electricity_belgium
         (
@@ -75,7 +79,10 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 </div>
 
 <div class="grid grid-cols-1">
-  <div class="card">${
+  <div class="card">
+    <h2 style="font-weight: bold; max-width: 100%;">Energy capacity evolution (non-renewable energy versus renewable energy)</h2>
+    <h3 style="margin-bottom: 10px">Belgium</h3>
+    ${
     resize((width) =>
         make_capacity_changes_belgium
         (
@@ -106,7 +113,8 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 
 <div class="grid grid-cols-1">
   <div class="card">
-    <h2 style="margin-bottom: 10px; font-weight: bold;">Actual Production Of Electricity Using Green Energy Sources Versus Installed Capacity</h2>
+    <h2 style="font-weight: bold; max-width: 100%;">Actual Production Of Electricity Using Green Energy Sources Versus Installed Capacity</h2>
+    <h3 style="margin-bottom: 10px">Belgium</h3>
     ${
     resize((width) =>
         make_stacked_horizontal_bar_plot
@@ -135,14 +143,14 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 
 <div class="grid grid-cols-4">
   <div class="card">
-    <h2 style="margin-bottom: 30px; font-weight: bold;">Technology</h2>
+    <h2 style="margin-bottom: 30px; font-weight: bold; max-width: 100%">Technology</h2>
     ${
     resize((width) =>
         waffle_legend()
     )
   }</div>
   <div class="card">
-    <h2 style="font-weight: bold">Actual production of green energy versus capacity</h2>
+    <h2 style="font-weight: bold; max-width: 100%;">Actual production of green energy versus capacity</h2>
     <h3 style="margin-bottom: 10px">Belgium</h3>
     ${
     resize((width) =>
@@ -154,7 +162,7 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
     )
   }</div>
   <div class="card">
-    <h2 style="font-weight: bold">Actual production of green energy versus capacity</h2>
+    <h2 style="font-weight: bold; max-width: 100%;">Actual production of green energy versus capacity</h2>
     <h3 style="margin-bottom: 10px">Europe</h3>
     ${
     resize((width) =>
@@ -166,7 +174,7 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
     )
   }</div>
   <div class="card">
-    <h2 style="font-weight: bold">Actual production of green energy versus capacity</h2>
+    <h2 style="font-weight: bold; max-width: 100%;">Actual production of green energy versus capacity</h2>
     <h3 style="margin-bottom: 10px">World</h3>
     ${
     resize((width) =>

@@ -21,7 +21,8 @@ import {timeline_per_region_per_year} from "./components/timeline.js";
 
 <div class="grid grid-cols-1">
   <div class="card">
-  <h2 style="font-weight: bold; max-width: 100%;">Evolution of the electricity production in Belgium, Europe and the world using green energy sources</h2>
+  <h2 style="font-weight: bold; max-width: 100%;">Evolution of the electricity production using green energy sources</h2>
+  <h3 style="margin-bottom: 10px">Belgium, Europe and the world</h3>
   ${
     resize((width) => timeline_per_region_per_year
         (

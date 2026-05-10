@@ -19,7 +19,6 @@ export function make_overview_electricity_belgium(
   return Plot.plot({
     width,
     height,
-    title: "Electricity generation in Belgium with different kinds of energy",
     x: { label: "Year", tickFormat: (d) => String(d) },
     y: { label: "Electricity Generation (GWh)", grid: true },
     marks: [
