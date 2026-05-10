@@ -21,7 +21,9 @@ import {max_vs_produced_electricity_belgium, tech_shares_belgium, tech_shares_eu
 </div>
 
 <div class="grid grid-cols-1">
-  <div class="card">${
+  <div class="card">
+    <h2 style="font-weight: bold; max-width: 100%;">Investments in Belgium for renewable energy (2000-2024)</h2>
+    ${
     resize((width) =>
         investments_belgium
         (

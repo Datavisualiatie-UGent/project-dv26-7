@@ -23,7 +23,6 @@ export function investments_belgium(
       domain: data.map((d) => d["Group Technology"]),
       tickSize: 0,
     },
-    title: "Investments in Belgium for renewable energy (2000-2024)",
     marks: [
       // stick
       Plot.ruleY(data, {
