@@ -13,7 +13,7 @@ export function investments_belgium(
     width,
     height,
     x: {
-      label: "Investment (Million USD)",
+      label: "Investment (Million USD 2022)",
       labelArrow: false,
       labelAnchor: "center",
       insetLeft: 10,
