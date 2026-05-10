@@ -4,7 +4,7 @@ title: Belgium
 toc: false
 ---
 
-# België 🇧🇪
+# 🇧🇪 Belgium
 
 ```js
 import {make_stacked_horizontal_bar_plot} from "./components/stacked_horizontal_bar_plot.js"
