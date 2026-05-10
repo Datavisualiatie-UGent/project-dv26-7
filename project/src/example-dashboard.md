@@ -1,6 +1,6 @@
 ---
 theme: dashboard
-title: België
+title: Belgium
 toc: false
 ---
 
