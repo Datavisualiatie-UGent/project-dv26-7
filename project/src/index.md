@@ -19,15 +19,18 @@ import {combined_energy_data_by_year} from "./data/load_data.js";
 import {timeline_per_region_per_year} from "./components/timeline.js";
 ```
 
-<div class="grid grid-cols-1" style="grid-auto-rows: 504px;">
-  <div class="card">${
+<div class="grid grid-cols-1">
+  <div class="card">
+  <h2 style="font-weight: bold; max-width: 100%;">Evolution of the electricity production in Belgium, Europe and the world using green energy sources</h2>
+  ${
     resize((width) => timeline_per_region_per_year
         (
             combined_energy_data_by_year,
             {width}
         )
     )
-  }</div>
+  }
+  </div>
 </div>
  
  ---
