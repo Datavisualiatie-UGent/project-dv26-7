@@ -100,6 +100,8 @@ const countriesList = Array.from(
     new Set(country.map(d => d["ISO3 code"]))
 ).sort();
 
+const countryInput = select(countriesList, {label: "Country: "});
+const countrySelection = Generators.input(countryInput);
 
 const countryAInput = select(countriesList, {label: "Country A: "});
 const countryBInput = select(countriesList, {label: "Country B: "});
@@ -120,9 +122,6 @@ const relativeInput = select(
 
 const relativeMode =
     Generators.input(relativeInput);
-
-const selectedCountryInput = select(["USA", ...countriesList]);
-const selectedCountry = selectedCountryInput;
 ```
 ---
 
@@ -166,23 +165,22 @@ Using the visualisation below, you can select the category of renewables in whic
                 country, 
                 category
             ), 
-            {
-              width,
-              onCountryClick: d => {
-                selectedCountryInput.value = d;
-              }
-            } 
+            { width } 
         ))} 
     </div> 
 </div>
 
 ---
 
-<div>
-  Selected country: ${selectedCountry.value}
-</div>
-
 ## Selected country evolution
+
+<p>
+Where the plot above may show the trends for the entire world throughout the years, it is also interesting to take a look at individual countries. Below, you can observe the evolution of an entire country.
+</p>
+
+<div class="grid grid-cols-1">
+  <div class="card">${countryInput}</div>
+</div> 
 
 <div class="grid grid-cols-1">
     <div class="card">
@@ -191,7 +189,7 @@ Using the visualisation below, you can select the category of renewables in whic
                 make_country_evolution_chart(
                     computeCountryEvolutionData(
                         country,
-                        selectedCountry.value
+                        countrySelection
                     ),
                     { width }
                 )

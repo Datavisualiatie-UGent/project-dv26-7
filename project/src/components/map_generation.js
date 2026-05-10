@@ -51,13 +51,5 @@ export function make_generation_map(
     ]
   });
 
-  d3.select(plot)
-    .selectAll("path")
-    .data(countriesWithData)
-    .style("cursor", "pointer")
-    .on("click", (_, d) => {
-      onCountryClick(d.properties.name);
-    });
-
   return plot;
 }
