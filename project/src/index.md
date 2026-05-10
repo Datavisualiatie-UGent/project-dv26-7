@@ -8,7 +8,7 @@ toc: false
 </div>
 
 <div>
-  In the graph below, you can see the evolution of the production of electricity using green energy sources. On the y-axis, you can see the percentage of green electricity production in relation to all of the produced electricity. Throughout the years it is clear that Belgium lacked behind in their green electricity production. Up untill 2011, less than 10% of all the produced electricity, came from renewable energy sources. In the next 7 years, Belgium was however able to double that production. In 2023, Belgium produced more than 30% of its electricity through renewable sources, thereby surpassing the world and catching up to Europe, where almost 40% of the produced electricity is sustainable. 
+  In the graph below, you can see the evolution of the production of electricity using green energy sources. On the y-axis, you can see the percentage of green electricity production in relation to all of the produced electricity. Throughout the years it is clear that Belgium lagged behind in their green electricity production. Up untill 2011, less than 10% of all the produced electricity, came from renewable energy sources. In the next 7 years, Belgium was however able to double that production. In 2023, Belgium produced more than 30% of its electricity through renewable sources, thereby surpassing the world and catching up to Europe, where almost 40% of the produced electricity is sustainable. 
 </div>
 
 ```js
