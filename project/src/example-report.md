@@ -1,10 +1,10 @@
 ---
 theme: dashboard
-title: Global Energy Dashboard
+title: Global Energy
 toc: false
 ---
 
-# 🌍 Global Energy Dashboard
+# 🌍 Global Energy
 
 ```js
 import * as d3 from "d3";
@@ -49,7 +49,7 @@ import {
 } from "./data/load_data.js";
 
 const world = await loadWorld();
-const country = country_data;
+const country = country_data.filter(d => d["Year"] !== "2024");
 
 const isoToM49 = buildIsoToM49(country);
 const categories = [
@@ -73,7 +73,12 @@ const categoryInput = select(categories, {
 });
 const category = Generators.input(categoryInput);
 
-const yearExtent = d3.extent(country, d => d.Year);
+const MAX_YEAR = 2023;
+
+const yearExtent = d3.extent(
+    country.filter(d => +d.Year <= MAX_YEAR),
+    d => +d.Year
+);
 
 const energyYearInput = range(yearExtent, {
     step: 1,
@@ -129,12 +134,12 @@ const relativeMode =
 Global overview
 </h2>
 
-<p>
+<div>
 The shift to the production and use of renewable energy sources in the world is as important as ever. With scientists everywhere warning about the consequences of global warming, many countries attempt to increase their share of renewable energy. But how are they doing that and how have they evolved over the years?
-</p>
-<p>
+</div>
+<div>
 Using the visualisation below, you can select the category of renewables in which you are interested and look at the electricity production throughout the years. The worldmap shows the absolute production of electricity per category for each country.
-</p>
+</div>
 
 <div class="grid grid-cols-2"> 
     <div class="card">

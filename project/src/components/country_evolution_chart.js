@@ -11,7 +11,8 @@ export function make_country_evolution_chart(
     marginBottom: 50,
 
     x: {
-      label: "Year"
+      label: "Year",
+      tickFormat: d => String(d)
     },
 
     y: {

@@ -344,6 +344,8 @@ export const cap_bar_data = get_capacity_changes_bar_data(belgium_country_data);
 // dynamic data
 //--------------
 
+export const MAX_YEAR = 2023;
+
 export async function loadWorld() {
   const world = await fetch(
     "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
@@ -368,8 +370,10 @@ export function buildIsoToM49(country) {
 }
 
 export function computeCategoryData(country, category, year) {
+  const clampedYear = Math.min(year, MAX_YEAR);
+
   const filtered = country.filter(
-    (d) => d["Year"] === year.toString() && d["Group Technology"] === category,
+    (d) => +d["Year"] === clampedYear && d["Group Technology"] === category,
   );
 
   return d3.rollup(
@@ -410,7 +414,9 @@ export function computeCategoryMax(country, category) {
 }
 
 export function computeInvestmentData(country, year) {
-  const filtered = country.filter((d) => d["Year"] === year.toString());
+  const clampedYear = Math.min(year, MAX_YEAR);
+
+  const filtered = country.filter((d) => +d["Year"] === clampedYear);
 
   return d3.rollup(
     filtered,
@@ -458,6 +464,8 @@ export const groupedCategories = [
 ];
 
 export function computeRadarData(country, iso3, year) {
+  const clampedYear = Math.min(year, MAX_YEAR);
+
   const filtered = country.filter(
     (d) => d.Year === year.toString() && d["ISO3 code"] === iso3,
   );
@@ -495,7 +503,10 @@ export function computeProductionComparisonData(
 ) {
   return iso3List.map((iso3) => {
     const filtered = country.filter(
-      (d) => d.Year === year.toString() && d["ISO3 code"] === iso3,
+      (d) =>
+        d.Year === year.toString() &&
+        d["ISO3 code"] === iso3 &&
+        +d.Year <= MAX_YEAR,
     );
 
     let renewable = 0;
@@ -528,7 +539,9 @@ export function computeProductionComparisonData(
 export function computeCountryEvolutionData(country, iso3) {
   if (!iso3) return [];
 
-  const filtered = country.filter((d) => d["ISO3 code"] === iso3);
+  const filtered = country.filter(
+    (d) => d["ISO3 code"] === iso3 && +d.Year <= 2023,
+  );
 
   // group by year + category (THIS IS THE FIX)
   const rolled = d3.rollups(
