@@ -42,7 +42,7 @@ export function make_radar_chart(
     .attr("class", "grid-label")
     .attr("x", 5)
     .attr("y", (d) => -r(d))
-    .attr("fill", "white")
+    .attr("fill", "black")
     .style("font-size", "8px")
     .text((d) => `${d * 100}%`);
 
@@ -77,7 +77,7 @@ export function make_radar_chart(
     })
     .attr("text-anchor", "middle")
     .attr("alignment-baseline", "middle")
-    .attr("fill", "white")
+    .attr("fill", "black")
     .style("font-size", "10px")
     .text((d) => d.category);
 
@@ -108,13 +108,13 @@ export function make_radar_chart(
       r(d.share) * Math.sin(angle(d.category) - Math.PI / 2)
     )
     .attr("r", 3)
-    .attr("fill", "white");
+    .attr("fill", "blue");
 
   // title moved higher to avoid overlap
   svg.append("text")
     .attr("y", -height / 2 + 8)
     .attr("text-anchor", "middle")
-    .attr("fill", "white")
+    .attr("fill", "black")
     .style("font-weight", "bold")
     .style("font-size", "14px")
     .text(title);
