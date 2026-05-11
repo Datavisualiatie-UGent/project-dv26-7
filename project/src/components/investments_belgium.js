@@ -1,5 +1,6 @@
 import * as Plot from "npm:@observablehq/plot";
 import * as d3 from "d3";
+import { TECHNOLOGY_COLORS } from "../color.js";
 
 export function investments_belgium(
   data,
@@ -9,6 +10,11 @@ export function investments_belgium(
   marginLeft,
   { width, height } = {},
 ) {
+  const visible_colours = [
+    "Offshore wind energy",
+    "Solar photovoltaic",
+    "Other renewables",
+  ];
   return Plot.plot({
     width,
     height,
@@ -46,7 +52,11 @@ export function investments_belgium(
         textAnchor: "start",
       }),
     ],
-    color: { legend: false },
+    color: {
+      domain: visible_colours,
+      range: visible_colours.map((d) => TECHNOLOGY_COLORS[d]),
+      legend: false,
+    },
     margin: 120,
     marginTop: 0,
     marginBottom: 40,

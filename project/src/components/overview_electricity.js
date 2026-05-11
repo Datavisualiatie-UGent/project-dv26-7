@@ -1,5 +1,6 @@
 import * as Plot from "npm:@observablehq/plot";
 import * as d3 from "d3";
+import { TECHNOLOGY_COLORS } from "../color.js";
 
 export function make_overview_electricity_belgium(
   data,
@@ -10,11 +11,14 @@ export function make_overview_electricity_belgium(
   { width, height } = {},
 ) {
   const groups = [...new Set(data.map((d) => d["Group Technology"]))];
-
-  const color = d3
-    .scaleOrdinal()
-    .domain([...new Set(data.map((d) => d["Group Technology"]))])
-    .range(d3.schemeObservable10);
+  const visible_colours = [
+    "Wind energy",
+    "Solar energy",
+    "Bioenergy",
+    "Hydropower",
+    "Fossil fuels",
+    "Nuclear",
+  ];
 
   return Plot.plot({
     width,
@@ -26,7 +30,7 @@ export function make_overview_electricity_belgium(
 
       // Label Doel 3
       Plot.ruleX([2022], {
-        stroke: color("Nuclear"),
+        stroke: TECHNOLOGY_COLORS["Nuclear"],
         strokeDasharray: "4,4",
       }),
       Plot.text([{ Year: 2022, label: "Doel 3 closed" }], {
@@ -34,12 +38,12 @@ export function make_overview_electricity_belgium(
         y: d3.max(data, (elem) => elem["Electricity Generation (GWh)"]),
         text: "label",
         dy: -10,
-        fill: color("Nuclear"),
+        fill: TECHNOLOGY_COLORS["Nuclear"],
       }),
 
       // Label bouw windmolenpark
       Plot.ruleX([2018], {
-        stroke: color("Wind energy"),
+        stroke: TECHNOLOGY_COLORS["Wind energy"],
         strokeDasharray: "4,4",
       }),
       Plot.text([{ Year: 2019, label: "Biggest offshore\nwind farm" }], {
@@ -48,12 +52,12 @@ export function make_overview_electricity_belgium(
         text: "label",
         dy: -10,
         dx: -40,
-        fill: color("Wind energy"),
+        fill: TECHNOLOGY_COLORS["Wind energy"],
       }),
 
       // Label nuclear out of service
       Plot.ruleX([2014], {
-        stroke: color("Nuclear"),
+        stroke: TECHNOLOGY_COLORS["Nuclear"],
         strokeDasharray: "4,4",
       }),
       Plot.text(
@@ -64,13 +68,13 @@ export function make_overview_electricity_belgium(
           text: "label",
           dy: -10,
           dx: 0,
-          fill: color("Nuclear"),
+          fill: TECHNOLOGY_COLORS["Nuclear"],
         },
       ),
 
       // Label nuclear out of service
       Plot.ruleX([2009], {
-        stroke: color("Fossil fuels"),
+        stroke: TECHNOLOGY_COLORS["Fossil fuels"],
         strokeDasharray: "4,4",
       }),
       Plot.text([{ Year: 2009, label: "EU Renewable\nEnergy Directive" }], {
@@ -79,7 +83,7 @@ export function make_overview_electricity_belgium(
         text: "label",
         dy: -10,
         dx: 0,
-        fill: color("Fossil fuels"),
+        fill: TECHNOLOGY_COLORS["Fossil fuels"],
       }),
 
       Plot.dot(data, {
@@ -94,6 +98,10 @@ export function make_overview_electricity_belgium(
         stroke: "Group Technology",
       }),
     ],
-    color: { legend: true, domain: color.domain(), range: color.range() },
+    color: {
+      domain: visible_colours,
+      range: visible_colours.map((d) => TECHNOLOGY_COLORS[d]),
+      legend: true,
+    },
   });
 }
