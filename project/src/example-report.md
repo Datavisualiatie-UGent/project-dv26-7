@@ -189,6 +189,7 @@ Where the plot above may show the trends for the entire world throughout the yea
 
 <div class="grid grid-cols-1">
     <div class="card">
+        <h2 style="font-weight: bold">Evolution of electricity generated per country</h2>
         ${
             resize((width) =>
                 make_country_evolution_chart(
