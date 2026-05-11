@@ -23,8 +23,8 @@ export function make_production_comparison_chart(
   const colors = d3.scaleOrdinal()
     .domain(keys)
     .range([
-      "#2ca25f",
-      "#de2d26"
+      "#efb118",
+      "#4269d0"
     ]);
 
   const x = d3.scaleBand()
@@ -72,10 +72,10 @@ export function make_production_comparison_chart(
     .call(d3.axisBottom(x))
     .call(g => {
       g.selectAll("text")
-        .attr("fill", "white");
+        .attr("fill", "currentColor");
 
       g.selectAll("path,line")
-        .attr("stroke", "white");
+        .attr("stroke", "currentColor");
     });
 
   // y-axis
@@ -92,10 +92,10 @@ export function make_production_comparison_chart(
     .call(yAxis)
     .call(g => {
       g.selectAll("text")
-        .attr("fill", "white");
+        .attr("fill", "currentColor");
 
       g.selectAll("path,line")
-        .attr("stroke", "white");
+        .attr("stroke", "currentColor");
     });
 
   // y-axis label
@@ -105,7 +105,7 @@ export function make_production_comparison_chart(
       `translate(20, ${height / 2}) rotate(-90)`
     )
     .attr("text-anchor", "middle")
-    .attr("fill", "white")
+    .attr("fill", "currentColor")
     .style("font-size", "12px")
     .text(
       relative
@@ -135,7 +135,7 @@ export function make_production_comparison_chart(
       g.append("text")
         .attr("x", 20)
         .attr("y", 11)
-        .attr("fill", "white")
+        .attr("fill", "currentColor")
         .style("font-size", "12px")
         .text(d => d);
     });

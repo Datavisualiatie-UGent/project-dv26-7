@@ -42,7 +42,7 @@ export function make_radar_chart(
     .attr("class", "grid-label")
     .attr("x", 5)
     .attr("y", (d) => -r(d))
-    .attr("fill", "black")
+    .attr("fill", "currentColor")
     .style("font-size", "8px")
     .text((d) => `${d * 100}%`);
 
@@ -77,7 +77,7 @@ export function make_radar_chart(
     })
     .attr("text-anchor", "middle")
     .attr("alignment-baseline", "middle")
-    .attr("fill", "black")
+    .attr("fill", "currentColor")
     .style("font-size", "10px")
     .text((d) => d.category);
 
@@ -114,7 +114,7 @@ export function make_radar_chart(
   svg.append("text")
     .attr("y", -height / 2 + 8)
     .attr("text-anchor", "middle")
-    .attr("fill", "black")
+    .attr("fill", "currentColor")
     .style("font-weight", "bold")
     .style("font-size", "14px")
     .text(title);
