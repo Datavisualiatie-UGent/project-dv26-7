@@ -10,7 +10,6 @@ export function make_waffle_chart(data, {width} = {})
 
         color: {
             legend: false,
-            scheme: "viridis",
             domain: tech_shares_belgium.map(d => d.tech),
         },
 
@@ -35,7 +34,6 @@ export function waffle_legend()
 {
     return Plot.legend({
         color: {
-            scheme: "viridis",
             domain: tech_shares_belgium.map(d => d.tech),
         },
         columns: 1,

@@ -12,8 +12,6 @@ export function make_capacity_changes_belgium(
   { width, height } = {},
 ) {
   return Plot.plot({
-    title:
-      "Energy capacity additions per year in Belgium (Non-Renewable Energy VS Renewable Energy)",
     x: { label: "Year", tickFormat: (d) => String(d) },
     y: {
       label: "Capacity change (MW)",

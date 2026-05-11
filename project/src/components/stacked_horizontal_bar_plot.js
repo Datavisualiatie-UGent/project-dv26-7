@@ -15,7 +15,6 @@ export function make_stacked_horizontal_bar_plot(
         marginTop: -20,
         color: {
             legend: true,
-            scheme: "viridis",
         },
         marks: [
             Plot.barX(data, {
