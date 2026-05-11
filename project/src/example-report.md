@@ -4,7 +4,7 @@ title: Global Energy
 toc: false
 ---
 
-# 🌍 Global Energy Dashboard
+# 🌍 Global Energy
 
 ```js
 import * as d3 from "d3";
