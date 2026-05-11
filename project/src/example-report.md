@@ -49,7 +49,7 @@ import {
 } from "./data/load_data.js";
 
 const world = await loadWorld();
-const country = country_data;
+const country = country_data.filter(d => d["Year"] !== "2024");
 
 const isoToM49 = buildIsoToM49(country);
 const categories = [
