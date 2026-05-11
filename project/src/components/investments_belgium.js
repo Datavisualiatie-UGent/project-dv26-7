@@ -13,7 +13,7 @@ export function investments_belgium(
     width,
     height,
     x: {
-      label: "Investment (Million USD)",
+      label: "Investment (Million USD 2022)",
       labelArrow: false,
       labelAnchor: "center",
       insetLeft: 10,
@@ -23,7 +23,6 @@ export function investments_belgium(
       domain: data.map((d) => d["Group Technology"]),
       tickSize: 0,
     },
-    title: "Investments in Belgium for renewable energy (2000-2024)",
     marks: [
       // stick
       Plot.ruleY(data, {
@@ -47,7 +46,7 @@ export function investments_belgium(
         textAnchor: "start",
       }),
     ],
-    color: { legend: false, scheme: "viridis" },
+    color: { legend: false },
     margin: 120,
     marginTop: 0,
     marginBottom: 40,

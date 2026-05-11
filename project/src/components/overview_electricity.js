@@ -14,14 +14,13 @@ export function make_overview_electricity_belgium(
   const color = d3
     .scaleOrdinal()
     .domain([...new Set(data.map((d) => d["Group Technology"]))])
-    .range(d3.quantize(d3.interpolateViridis, groups.length));
+    .range(d3.schemeObservable10);
 
   return Plot.plot({
     width,
     height,
-    title: "Electricity generation in Belgium with different kinds of energy",
     x: { label: "Year", tickFormat: (d) => String(d) },
-    y: { label: "Electricity Generation (GWh)" },
+    y: { label: "Electricity Generation (GWh)", grid: true },
     marks: [
       Plot.ruleY([0]),
 
@@ -43,7 +42,7 @@ export function make_overview_electricity_belgium(
         stroke: color("Wind energy"),
         strokeDasharray: "4,4",
       }),
-      Plot.text([{ Year: 2019, label: "Biggest offshore windpark" }], {
+      Plot.text([{ Year: 2019, label: "Biggest offshore\nwind farm" }], {
         x: "Year",
         y: d3.max(data, (elem) => elem["Electricity Generation (GWh)"]),
         text: "label",
@@ -58,7 +57,7 @@ export function make_overview_electricity_belgium(
         strokeDasharray: "4,4",
       }),
       Plot.text(
-        [{ Year: 2014, label: "Doel 3 and Tihange 2 out of service" }],
+        [{ Year: 2014, label: "Doel 3 and Tihange 2\nout of service" }],
         {
           x: "Year",
           y: d3.max(data, (elem) => elem["Electricity Generation (GWh)"]),
@@ -74,7 +73,7 @@ export function make_overview_electricity_belgium(
         stroke: color("Fossil fuels"),
         strokeDasharray: "4,4",
       }),
-      Plot.text([{ Year: 2009, label: "Energy decree" }], {
+      Plot.text([{ Year: 2009, label: "EU Renewable\nEnergy Directive" }], {
         x: "Year",
         y: d3.max(data, (elem) => elem["Electricity Generation (GWh)"]),
         text: "label",

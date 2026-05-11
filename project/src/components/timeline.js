@@ -20,7 +20,6 @@ export function timeline_per_region_per_year(
     {width, height} = {},
 ) {
   return Plot.plot({
-    title: "Evolutie van de productie van electriciteit via groene energie doorheen de jaren",
     width,
     height,
     x: {
@@ -29,7 +28,7 @@ export function timeline_per_region_per_year(
       ticks: 10
     },
     y: {
-      label: "Productie groene energie ten opzichte van totale energieproductie (%)",
+      label: "Green energy production versus total energy production (%)",
       domain: [0,100],
       grid: true
     },
