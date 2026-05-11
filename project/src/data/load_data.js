@@ -2,7 +2,14 @@ import { FileAttachment } from "observablehq:stdlib";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 
-export const country_data = await FileAttachment("../data/country.csv").csv();
+const _country_data = await FileAttachment("../data/country.csv").csv();
+export const country_data = _country_data.map(d => ({
+    ...d,
+    "Group Technology":
+        d["Group Technology"] === "Hydropower (excl. Pumped Storage)"
+            ? "Hydropower"
+            : d["Group Technology"]
+}));
 const europe_country_data = country_data.filter(
   (row) => row["Region"] === "Europe",
 );
