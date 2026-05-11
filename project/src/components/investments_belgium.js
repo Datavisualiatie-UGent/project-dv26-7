@@ -1,5 +1,6 @@
 import * as Plot from "npm:@observablehq/plot";
 import * as d3 from "d3";
+import { TECHNOLOGY_COLORS } from "../color.js";
 
 export function investments_belgium(
   data,
@@ -46,7 +47,11 @@ export function investments_belgium(
         textAnchor: "start",
       }),
     ],
-    color: { legend: false },
+    color: {
+      domain: Object.keys(TECHNOLOGY_COLORS),
+      range: Object.values(TECHNOLOGY_COLORS),
+      legend: false,
+    },
     margin: 120,
     marginTop: 0,
     marginBottom: 40,
