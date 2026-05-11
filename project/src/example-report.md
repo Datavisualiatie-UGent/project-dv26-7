@@ -129,12 +129,12 @@ const relativeMode =
 Global overview
 </h2>
 
-<p>
+<div>
 The shift to the production and use of renewable energy sources in the world is as important as ever. With scientists everywhere warning about the consequences of global warming, many countries attempt to increase their share of renewable energy. But how are they doing that and how have they evolved over the years?
-</p>
-<p>
+</div>
+<div>
 Using the visualisation below, you can select the category of renewables in which you are interested and look at the electricity production throughout the years. The worldmap shows the absolute production of electricity per category for each country.
-</p>
+</div>
 
 <div class="grid grid-cols-2"> 
     <div class="card">
