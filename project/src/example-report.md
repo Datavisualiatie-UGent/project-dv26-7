@@ -188,9 +188,9 @@ Using the visualisation below, you can select the category of renewables in whic
 
 ## Selected country evolution
 
-<p>
+<div>
 Where the plot above may show the trends for the entire world throughout the years, it is also interesting to take a look at individual countries. Below, you can observe the evolution of an entire country.
-</p>
+</div>
 
 <div class="grid grid-cols-1">
   <div class="card">${countryInput}</div>
@@ -213,9 +213,9 @@ Where the plot above may show the trends for the entire world throughout the yea
     </div>
 </div>
 
-<p>
+<div>
 But let's also take a look at the investments made by each country. 
-</p>
+</div>
 
 <div class="grid grid-cols-1">
     <div class="card">
@@ -249,13 +249,13 @@ But let's also take a look at the investments made by each country.
 Comparison of countries
 </h2>
 
-<p>
+<div>
 Now that we have a sense of the global trends, maybe it is interesting to take a closer look at the countries themselves. From what sources do countries get there renewable energy and how much of their total energy production is renewable?
-</p>
+</div>
 
-<p>
+<div>
 Below you can select 2 countries and analyze where they get their renewable energy from. But don't be bamboozled, these percentages are relative and don't show what share of their production is renewable as well as how large their production is. For that comparison, you can take a closer look at the bar chart underneath to get a better idea. 
-</p>
+</div>
 
 <div class="grid grid-cols-1"> 
   <div class="card">${radarYearInput}</div>
