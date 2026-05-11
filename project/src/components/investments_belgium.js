@@ -10,6 +10,11 @@ export function investments_belgium(
   marginLeft,
   { width, height } = {},
 ) {
+  const visible_colours = [
+    "Offshore wind energy",
+    "Solar photovoltaic",
+    "Other renewables",
+  ];
   return Plot.plot({
     width,
     height,
@@ -48,8 +53,8 @@ export function investments_belgium(
       }),
     ],
     color: {
-      domain: Object.keys(TECHNOLOGY_COLORS),
-      range: Object.values(TECHNOLOGY_COLORS),
+      domain: visible_colours,
+      range: visible_colours.map((d) => TECHNOLOGY_COLORS[d]),
       legend: false,
     },
     margin: 120,

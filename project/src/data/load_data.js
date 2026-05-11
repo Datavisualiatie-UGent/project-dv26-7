@@ -3,12 +3,12 @@ import * as d3 from "d3";
 import * as topojson from "topojson-client";
 
 const _country_data = await FileAttachment("../data/country.csv").csv();
-export const country_data = _country_data.map(d => ({
-    ...d,
-    "Group Technology":
-        d["Group Technology"] === "Hydropower (excl. Pumped Storage)"
-            ? "Hydropower"
-            : d["Group Technology"]
+export const country_data = _country_data.map((d) => ({
+  ...d,
+  "Group Technology":
+    d["Group Technology"] === "Hydropower (excl. Pumped Storage)"
+      ? "Hydropower"
+      : d["Group Technology"],
 }));
 const europe_country_data = country_data.filter(
   (row) => row["Region"] === "Europe",
@@ -216,7 +216,7 @@ function get_investment_data(data) {
 
   let result = Array.from(grouped, ([group, investements]) => ({
     "Group Technology":
-      group === "Multiple renewables" ? "Other renewables" : group,
+      group === "Multiple renewables*" ? "Other renewables" : group,
     Investment: investements,
   }))
     .flat()
@@ -366,12 +366,12 @@ export async function loadWorld() {
 export async function loadCountryData() {
   const data = await FileAttachment("country.csv").csv({ typed: true });
 
-  return data.map(d => ({
+  return data.map((d) => ({
     ...d,
     "Group Technology":
       d["Group Technology"] === "Multiple renewables*"
         ? "Multiple renewables"
-        : d["Group Technology"]
+        : d["Group Technology"],
   }));
 }
 
