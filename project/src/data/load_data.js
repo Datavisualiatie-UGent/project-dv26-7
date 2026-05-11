@@ -216,7 +216,7 @@ function get_investment_data(data) {
 
   let result = Array.from(grouped, ([group, investements]) => ({
     "Group Technology":
-      group === "Multiple renewables*" ? "Other renewables" : group,
+      group === "Multiple renewables" ? "Other renewables" : group,
     Investment: investements,
   }))
     .flat()
@@ -364,7 +364,15 @@ export async function loadWorld() {
 }
 
 export async function loadCountryData() {
-  return FileAttachment("country.csv").csv({ typed: true });
+  const data = await FileAttachment("country.csv").csv({ typed: true });
+
+  return data.map(d => ({
+    ...d,
+    "Group Technology":
+      d["Group Technology"] === "Multiple renewables*"
+        ? "Multiple renewables"
+        : d["Group Technology"]
+  }));
 }
 
 export function buildIsoToM49(country) {
@@ -455,7 +463,7 @@ export const categoryMap = new Map([
   ["Solar energy", "Solar"],
   ["Geothermal energy", "Other renewables"],
   ["Marine energy", "Other renewables"],
-  ["Multiple renewables*", "Other renewables"],
+  ["Multiple renewables", "Other renewables"],
   ["Other renewable energy", "Other renewables"],
   ["Fossil fuels", null],
   ["Nuclear", null],

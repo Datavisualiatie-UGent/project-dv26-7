@@ -49,16 +49,24 @@ import {
 } from "./data/load_data.js";
 
 const world = await loadWorld();
-const country = country_data.filter(d => d["Year"] !== "2024");
+const country = country_data
+  .map(d => ({
+    ...d,
+    "Group Technology":
+      d["Group Technology"]
+        ?.trim()
+        .replace(/\*$/, "")
+  }))
+  .filter(d => +d.Year <= 2023);
 
 const isoToM49 = buildIsoToM49(country);
 const categories = [
     "Bioenergy",
     "Fossil fuels",
     "Geothermal energy",
-    "Hydropower (excl. Pumped Storage)",
+    "Hydropower",
     "Marine energy",
-    "Multiple renewables*",
+    "Multiple renewables",
     "Nuclear",
     "Other non-renewable energy",
     "Other renewable energy",
