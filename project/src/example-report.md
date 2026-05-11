@@ -73,7 +73,12 @@ const categoryInput = select(categories, {
 });
 const category = Generators.input(categoryInput);
 
-const yearExtent = d3.extent(country, d => d.Year);
+const MAX_YEAR = 2023;
+
+const yearExtent = d3.extent(
+    country.filter(d => +d.Year <= MAX_YEAR),
+    d => +d.Year
+);
 
 const energyYearInput = range(yearExtent, {
     step: 1,
