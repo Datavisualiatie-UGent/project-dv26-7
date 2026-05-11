@@ -1,6 +1,6 @@
 ---
 theme: dashboard
-title: Global Energy Dashboard
+title: Global Energy
 toc: false
 ---
 
