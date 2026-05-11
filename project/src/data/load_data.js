@@ -482,7 +482,7 @@ export function computeRadarData(country, iso3, year) {
   const clampedYear = Math.min(year, MAX_YEAR);
 
   const filtered = country.filter(
-    (d) => d.Year === year.toString() && d["ISO3 code"] === iso3,
+    (d) => d.Year === year.toString() && d["Country"] === iso3,
   );
 
   const renewableOnly = filtered.filter(
@@ -520,7 +520,7 @@ export function computeProductionComparisonData(
     const filtered = country.filter(
       (d) =>
         d.Year === year.toString() &&
-        d["ISO3 code"] === iso3 &&
+        d["Country"] === iso3 &&
         +d.Year <= MAX_YEAR,
     );
 
@@ -555,7 +555,7 @@ export function computeCountryEvolutionData(country, iso3) {
   if (!iso3) return [];
 
   const filtered = country.filter(
-    (d) => d["ISO3 code"] === iso3 && +d.Year <= 2023,
+    (d) => d["Country"] === iso3 && +d.Year <= 2023,
   );
 
   // group by year + category (THIS IS THE FIX)
@@ -580,4 +580,24 @@ export function computeCountryEvolutionData(country, iso3) {
   }
 
   return result.sort((a, b) => a.year - b.year);
+}
+
+export async function buildCountryMaps() {
+  const country = await loadCountryData();
+
+  const name_to_iso = country.reduce((map, row) => {
+    const name = row["Country"]?.trim();
+    const iso = row["ISO3 code"]?.trim();
+
+    if (name && iso && !map.has(name)) {
+      map.set(name, iso);
+    }
+
+    return map;
+  }, new Map());
+
+  const iso_to_name = new Map(
+    Array.from(name_to_iso, ([name, iso]) => [iso, name])
+  );
+  return { name_to_iso, iso_to_name };
 }

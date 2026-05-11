@@ -45,7 +45,8 @@ import {
     computeRadarData,
     groupedCategories,
     computeProductionComparisonData,
-    computeCountryEvolutionData
+    computeCountryEvolutionData,
+    buildCountryMaps
 } from "./data/load_data.js";
 
 const world = await loadWorld();
@@ -58,6 +59,8 @@ const country = country_data
         .replace(/\*$/, "")
   }))
   .filter(d => +d.Year <= 2023);
+
+const { name_to_iso, iso_to_name } = await buildCountryMaps();
 
 const isoToM49 = buildIsoToM49(country);
 const categories = [
@@ -110,7 +113,7 @@ const radarYearInput = range(yearExtent, {
 const radarYear = Generators.input(radarYearInput);
 
 const countriesList = Array.from(
-    new Set(country.map(d => d["ISO3 code"]))
+    new Set(country.map(d => d["Country"]))
 ).sort();
 
 const countryInput = select(countriesList, {label: "Country: "});
