@@ -56,7 +56,7 @@ const categories = [
     "Bioenergy",
     "Fossil fuels",
     "Geothermal energy",
-    "Hydropower (excl. Pumped Storage)",
+    "Hydropower",
     "Marine energy",
     "Multiple renewables*",
     "Nuclear",
