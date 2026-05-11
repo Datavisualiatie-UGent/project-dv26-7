@@ -2,7 +2,14 @@ import { FileAttachment } from "observablehq:stdlib";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 
-export const country_data = await FileAttachment("../data/country.csv").csv();
+const _country_data = await FileAttachment("../data/country.csv").csv();
+export const country_data = _country_data.map(d => ({
+    ...d,
+    "Group Technology":
+        d["Group Technology"] === "Hydropower (excl. Pumped Storage)"
+            ? "Hydropower"
+            : d["Group Technology"]
+}));
 const europe_country_data = country_data.filter(
   (row) => row["Region"] === "Europe",
 );
@@ -66,7 +73,7 @@ function max_vs_produced(data) {
     data
       .filter((r) => r["RE or Non-RE"] === "Total Renewable")
       .map((d) => ({
-        Technology: d["Technology"],
+        Technology: d["Group Technology"],
         "Electricity Produced": d["Electricity Generation (GWh)"],
         "Max Production":
           (d["Electricity Installed Capacity (MW)"] * 24 * 365) / 1000,
@@ -340,7 +347,6 @@ export const non_renewable_cap_changes =
 
 export const cap_bar_data = get_capacity_changes_bar_data(belgium_country_data);
 
-
 //--------------
 // dynamic data
 //--------------
@@ -349,7 +355,7 @@ export const MAX_YEAR = 2023;
 
 export async function loadWorld() {
   const world = await fetch(
-    "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
+    "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
   ).then((r) => r.json());
 
   const key = Object.keys(world.objects)[0]; // safest fix
@@ -374,7 +380,7 @@ export function buildIsoToM49(country) {
     country.map((d) => [
       d["ISO3 code"],
       String(d["M49 code"]).padStart(3, "0"),
-    ])
+    ]),
   );
 }
 
@@ -382,25 +388,19 @@ export function computeCategoryData(country, category, year) {
   const clampedYear = Math.min(year, MAX_YEAR);
 
   const filtered = country.filter(
-    (d) =>
-      +d["Year"] === clampedYear &&
-      d["Group Technology"] === category
+    (d) => +d["Year"] === clampedYear && d["Group Technology"] === category,
   );
 
   return d3.rollup(
     filtered,
-    (values) =>
-      d3.sum(values, (d) => d["Electricity Generation (GWh)"] || 0),
-    (d) => d["ISO3 code"]
+    (values) => d3.sum(values, (d) => d["Electricity Generation (GWh)"] || 0),
+    (d) => d["ISO3 code"],
   );
 }
 
 export function mapToM49(categoryData, isoToM49) {
   return new Map(
-    Array.from(categoryData, ([iso, value]) => [
-      isoToM49.get(iso),
-      value,
-    ])
+    Array.from(categoryData, ([iso, value]) => [isoToM49.get(iso), value]),
   );
 }
 
@@ -412,53 +412,46 @@ export function attachDataToCountries(countries, dataMap) {
 }
 
 export function computeCategoryMax(country, category) {
-  const filtered = country.filter(
-    (d) => d["Group Technology"] === category
-  );
+  const filtered = country.filter((d) => d["Group Technology"] === category);
 
   const byCountryYear = d3.rollup(
     filtered,
-    (values) =>
-      d3.sum(values, (d) => d["Electricity Generation (GWh)"] || 0),
+    (values) => d3.sum(values, (d) => d["Electricity Generation (GWh)"] || 0),
     (d) => d["ISO3 code"],
-    (d) => d.Year
+    (d) => d.Year,
   );
 
   return d3.max(
     Array.from(byCountryYear.values(), (countryMap) =>
-      d3.max(countryMap.values())
-    )
+      d3.max(countryMap.values()),
+    ),
   );
 }
 
 export function computeInvestmentData(country, year) {
   const clampedYear = Math.min(year, MAX_YEAR);
 
-  const filtered = country.filter(
-    (d) => +d["Year"] === clampedYear
-  );
+  const filtered = country.filter((d) => +d["Year"] === clampedYear);
 
   return d3.rollup(
     filtered,
-    (values) =>
-      d3.sum(values, (d) => d["Public Flows (2022 USD M)"] || 0),
-    (d) => d["ISO3 code"]
+    (values) => d3.sum(values, (d) => d["Public Flows (2022 USD M)"] || 0),
+    (d) => d["ISO3 code"],
   );
 }
 
 export function computeInvestmentMax(country) {
   const byCountryYear = d3.rollup(
     country,
-    (values) =>
-      d3.sum(values, (d) => d["Public Flows (2022 USD M)"] || 0),
+    (values) => d3.sum(values, (d) => d["Public Flows (2022 USD M)"] || 0),
     (d) => d["ISO3 code"],
-    (d) => d.Year
+    (d) => d.Year,
   );
 
   return d3.max(
     Array.from(byCountryYear.values(), (countryMap) =>
-      d3.max(countryMap.values())
-    )
+      d3.max(countryMap.values()),
+    ),
   );
 }
 
@@ -486,22 +479,20 @@ export const groupedCategories = [
 ];
 
 export function computeRadarData(country, iso3, year) {
-
   const clampedYear = Math.min(year, MAX_YEAR);
 
   const filtered = country.filter(
-    d => d.Year === year.toString() && d["ISO3 code"] === iso3
+    (d) => d.Year === year.toString() && d["ISO3 code"] === iso3,
   );
 
   const renewableOnly = filtered.filter(
-    (d) => categoryMap.get(d["Group Technology"]) !== null
+    (d) => categoryMap.get(d["Group Technology"]) !== null,
   );
 
   const byCategory = d3.rollup(
     renewableOnly,
-    (v) =>
-      d3.sum(v, (d) => d["Electricity Generation (GWh)"] || 0),
-    (d) => categoryMap.get(d["Group Technology"])
+    (v) => d3.sum(v, (d) => d["Electricity Generation (GWh)"] || 0),
+    (d) => categoryMap.get(d["Group Technology"]),
   );
 
   const total = d3.sum(byCategory.values());
@@ -517,23 +508,20 @@ export function computeRadarData(country, iso3, year) {
   });
 }
 
-export const productionCategories = [
-  "Renewable",
-  "Non-renewable"
-];
+export const productionCategories = ["Renewable", "Non-renewable"];
 
 export function computeProductionComparisonData(
   country,
   iso3List,
   year,
-  relative = false
+  relative = false,
 ) {
   return iso3List.map((iso3) => {
     const filtered = country.filter(
-      d =>
+      (d) =>
         d.Year === year.toString() &&
         d["ISO3 code"] === iso3 &&
-        +d.Year <= MAX_YEAR
+        +d.Year <= MAX_YEAR,
     );
 
     let renewable = 0;
@@ -555,13 +543,10 @@ export function computeProductionComparisonData(
 
     return {
       country: iso3,
-      Renewable: relative && total > 0
-        ? renewable / total
-        : renewable,
-      "Non-renewable": relative && total > 0
-        ? nonRenewable / total
-        : nonRenewable,
-      total
+      Renewable: relative && total > 0 ? renewable / total : renewable,
+      "Non-renewable":
+        relative && total > 0 ? nonRenewable / total : nonRenewable,
+      total,
     };
   });
 }
@@ -570,18 +555,15 @@ export function computeCountryEvolutionData(country, iso3) {
   if (!iso3) return [];
 
   const filtered = country.filter(
-    d => d["ISO3 code"] === iso3 &&
-      +d.Year <= 2023
+    (d) => d["ISO3 code"] === iso3 && +d.Year <= 2023,
   );
 
   // group by year + category (THIS IS THE FIX)
   const rolled = d3.rollups(
     filtered,
-    v => d3.sum(v, d =>
-      +d["Electricity Generation (GWh)"] || 0
-    ),
-    d => +d.Year,
-    d => d["Group Technology"]
+    (v) => d3.sum(v, (d) => +d["Electricity Generation (GWh)"] || 0),
+    (d) => +d.Year,
+    (d) => d["Group Technology"],
   );
 
   // flatten to Plot-friendly format
@@ -592,7 +574,7 @@ export function computeCountryEvolutionData(country, iso3) {
       result.push({
         year,
         category,
-        value
+        value,
       });
     }
   }
