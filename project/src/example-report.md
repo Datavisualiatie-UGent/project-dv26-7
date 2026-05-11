@@ -198,7 +198,7 @@ Where the plot above may show the trends for the entire world throughout the yea
 
 <div class="grid grid-cols-1">
     <div class="card">
-        <h2 style="font-weight: bold">Evolution of electricity generated per country</h2>
+        <h2 style="font-weight: bold; max-width: 100%">Evolution of electricity generated per country</h2>
         ${
             resize((width) =>
                 make_country_evolution_chart(
@@ -226,6 +226,7 @@ But let's also take a look at the investments made by each country.
 
 <div class="grid grid-cols-1"> 
     <div class="card"> 
+    <h2 style="font-weight: bold; max-width: 100%">Worldwide investments in renewable energy</h2>
         ${ resize((width) => make_investment_map( 
             attachDataToCountries(
                 world, 
@@ -282,7 +283,7 @@ Below you can select 2 countries and analyze where they get their renewable ener
 
 <div class="grid grid-cols-1">
     <div class="card">
-      <h2 style="font-weight: bold">Comparison of proportions renewable/non-renewable electricity generation of the selected countries</h2>
+      <h2 style="font-weight: bold; max-width: 100%">Comparison of proportions renewable/non-renewable electricity generation of the selected countries</h2>
         ${
             resize((width) =>
                 make_production_comparison_chart(
