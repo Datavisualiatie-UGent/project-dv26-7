@@ -69,10 +69,8 @@ const categories = [
     "Geothermal energy",
     "Hydropower",
     "Marine energy",
-    "Multiple renewables",
     "Nuclear",
     "Other non-renewable energy",
-    "Other renewable energy",
     "Pumped storage",
     "Solar energy",
     "Wind energy"
