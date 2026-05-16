@@ -1,9 +1,17 @@
 import * as Plot from "npm:@observablehq/plot";
 
+function generateColors(n) {
+  return Array.from({ length: n }, (_, i) =>
+    `hsl(${(i * 360) / n}, 70%, 55%)`
+  );
+}
+
 export function make_country_evolution_chart(
   data,
   { width = 900, height = 400 } = {}
 ) {
+  const categories = [...new Set(data.map(d => d.category))];
+
   return Plot.plot({
     width,
     height,
@@ -22,7 +30,11 @@ export function make_country_evolution_chart(
 
     color: {
       legend: true,
-      label: "Energy source"
+      label: "Energy source",
+
+      // Explicit domain + range
+      domain: categories,
+      range: generateColors(categories.length)
     },
 
     marks: [
