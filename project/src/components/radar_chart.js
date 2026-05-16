@@ -6,6 +6,14 @@ export function make_radar_chart(
   title,
   { width = 350, height = 350 } = {}
 ) {
+
+  // Normalize to percentages
+  const total = d3.sum(radarData, d => d.value);
+
+  const normalizedData = radarData.map(d => ({
+    ...d,
+    share: total > 0 ? d.value / total : 0
+  }));
   // slightly reduce radius to leave room for labels/title
   const radius = width / 2 - 60;
 
@@ -49,7 +57,7 @@ export function make_radar_chart(
   // axes
   svg.append("g")
     .selectAll("line")
-    .data(radarData)
+    .data(normalizedData)
     .join("line")
     .attr("x1", 0)
     .attr("y1", 0)
@@ -64,7 +72,7 @@ export function make_radar_chart(
   // category labels
   svg.append("g")
     .selectAll("text.category-label")
-    .data(radarData)
+    .data(normalizedData)
     .join("text")
     .attr("class", "category-label")
     .attr("x", (d) => {
@@ -88,7 +96,7 @@ export function make_radar_chart(
     .curve(d3.curveLinearClosed);
 
   svg.append("path")
-    .datum(radarData)
+    .datum(normalizedData)
     .attr("d", line)
     .attr("fill", "steelblue")
     .attr("fill-opacity", 0.4)
@@ -98,7 +106,7 @@ export function make_radar_chart(
   // point markers
   svg.append("g")
     .selectAll("circle.data-point")
-    .data(radarData)
+    .data(normalizedData)
     .join("circle")
     .attr("class", "data-point")
     .attr("cx", (d) =>
