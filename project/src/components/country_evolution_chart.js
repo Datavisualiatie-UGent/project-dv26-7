@@ -35,7 +35,6 @@ export function make_country_evolution_chart(
 
       // Explicit domain + range
       domain: categories,
-      range: generateColors(categories.length)
     },
 
     marks: [
