@@ -31,6 +31,7 @@ export function make_country_evolution_chart(
     color: {
       legend: true,
       label: "Energy source",
+      scheme: "paired"
 
       // Explicit domain + range
       domain: categories,
