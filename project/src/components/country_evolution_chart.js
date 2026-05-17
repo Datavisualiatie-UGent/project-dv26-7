@@ -1,11 +1,5 @@
 import * as Plot from "npm:@observablehq/plot";
 
-function generateColors(n) {
-  return Array.from({ length: n }, (_, i) =>
-    `hsl(${(i * 360) / n}, 70%, 55%)`
-  );
-}
-
 export function make_country_evolution_chart(
   data,
   { width = 900, height = 400 } = {}
@@ -31,9 +25,7 @@ export function make_country_evolution_chart(
     color: {
       legend: true,
       label: "Energy source",
-      scheme: "paired"
-
-      // Explicit domain + range
+      scheme: "paired",
       domain: categories,
     },
 
