@@ -4,6 +4,8 @@ export function make_country_evolution_chart(
   data,
   { width = 900, height = 400 } = {}
 ) {
+  const categories = [...new Set(data.map(d => d.category))];
+
   return Plot.plot({
     width,
     height,
@@ -22,7 +24,9 @@ export function make_country_evolution_chart(
 
     color: {
       legend: true,
-      label: "Energy source"
+      label: "Energy source",
+      scheme: "paired",
+      domain: categories,
     },
 
     marks: [
